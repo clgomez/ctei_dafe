@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-DafeApplication<Dafe>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.Tech.Dafe.DafeApplication",
+            "projectName": "Dafe",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
