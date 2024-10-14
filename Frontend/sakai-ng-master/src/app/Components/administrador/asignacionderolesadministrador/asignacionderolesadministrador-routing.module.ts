@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { AsignacionDeRolesAdministradorComponent } from './asignacionderolesadministrador.component';
+import { AuthGuard } from 'src/app/Guards/auth.guard';
 
 @NgModule({
     imports: [RouterModule.forChild([
-        { path: '', component: AsignacionDeRolesAdministradorComponent }
+        { path: 'asignacionderolesadmin', loadChildren: () => import('./asignacionderolesadmin/asignacionderolesadmin.module').then(m => m.AsignacionDeRolesAdminModule), canActivate: [AuthGuard] },
+        { path: '**', redirectTo: '/login' }
     ])],
     exports: [RouterModule]
 })

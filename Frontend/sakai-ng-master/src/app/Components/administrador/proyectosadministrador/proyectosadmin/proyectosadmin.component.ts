@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../Services/auth.service';
-import { User } from '../../../Models/user.model';
+import { AuthService } from '../../../../Services/auth.service';
+import { User } from '../../../../Models/user.model';
 
 
 @Component({
-  selector: 'app-asignacionderolesadministrador',
-  templateUrl: './asignacionderolesadministrador.component.html',
-  styleUrls: ['./asignacionderolesadministrador.component.css']
+  selector: 'app-proyectosadmin',
+  templateUrl: './proyectosadmin.component.html',
+  styleUrls: ['./proyectosadmin.component.css']
 })
-export class AsignacionDeRolesAdministradorComponent implements OnInit {
+export class ProyectosAdminComponent implements OnInit {
   currentUser: User | null = null;
 
   constructor(

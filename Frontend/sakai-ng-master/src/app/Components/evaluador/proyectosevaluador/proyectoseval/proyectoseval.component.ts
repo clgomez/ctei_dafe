@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../Services/auth.service';
-import { User } from '../../../Models/user.model';
+import { AuthService } from '../../../../Services/auth.service';
+import { User } from '../../../../Models/user.model';
+
 
 @Component({
-  selector: 'app-proyectosinvestigador',
-  templateUrl: './proyectosinvestigador.component.html',
-  styleUrls: ['./proyectosinvestigador.component.css']
+  selector: 'app-proyectoseval',
+  templateUrl: './proyectoseval.component.html',
+  styleUrls: ['./proyectoseval.component.css']
 })
-export class ProyectosInvestigadorComponent implements OnInit {
+export class ProyectosEvalComponent implements OnInit {
   currentUser: User | null = null;
 
   constructor(

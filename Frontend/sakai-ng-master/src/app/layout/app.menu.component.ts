@@ -47,8 +47,8 @@ export class AppMenuComponent implements OnInit {
             this.model.push({
                 label: 'Herramientas de Usuario Investigador',
                 items: [
-                    { label: 'Convocatorias', icon: 'pi pi-fw pi-calendar', routerLink: ['/investigador/convocatoriasinvestigador'] },
-                    { label: 'Proyectos', icon: 'pi pi-fw pi-book', routerLink: ['/investigador/proyectosinvestigador'] }
+                    { label: 'Convocatorias', icon: 'pi pi-fw pi-calendar', routerLink: ['/investigador/convocatoriasinvestigador/convocatoriasinvest'] },
+                    { label: 'Proyectos', icon: 'pi pi-fw pi-book', routerLink: ['/investigador/proyectosinvestigador/proyectosinvest'] }
                 ]
             });
         }
@@ -61,7 +61,7 @@ export class AppMenuComponent implements OnInit {
             this.model.push({
                 label: 'Herramientas de Usuario Tutor',
                 items: [
-                    { label: 'Proyectos', icon: 'pi pi-fw pi-book', routerLink: ['/tutor/proyectostutor'] }
+                    { label: 'Proyectos', icon: 'pi pi-fw pi-book', routerLink: ['/tutor/proyectostutor/proyectostut'] }
                 ]
             });
         }
@@ -74,7 +74,7 @@ export class AppMenuComponent implements OnInit {
             this.model.push({
                 label: 'Herramientas de Usuario Evaluador',
                 items: [
-                    { label: 'Proyectos', icon: 'pi pi-fw pi-book', routerLink: ['/evaluador/proyectosevaluador'] }
+                    { label: 'Proyectos', icon: 'pi pi-fw pi-book', routerLink: ['/evaluador/proyectosevaluador/proyectoseval'] }
                 ]
             });
         }
@@ -87,9 +87,9 @@ export class AppMenuComponent implements OnInit {
             this.model.push({
                 label: 'Herramientas de Usuario Administrador',
                 items: [
-                    { label: 'Convocatorias', icon: 'pi pi-fw pi-calendar', routerLink: ['/administrador/convocatoriasadministrador'] },
-                    { label: 'Proyectos', icon: 'pi pi-fw pi-book', routerLink: ['/administrador/proyectosadministrador'] },
-                    { label: 'Asignación de Roles', icon: 'pi pi-fw pi-book', routerLink: ['/administrador/asignacionderolesadministrador'] }
+                    { label: 'Convocatorias', icon: 'pi pi-fw pi-calendar', routerLink: ['/administrador/convocatoriasadministrador/convocatoriasadmin'] },
+                    { label: 'Proyectos', icon: 'pi pi-fw pi-book', routerLink: ['/administrador/proyectosadministrador/proyectosadmin'] },
+                    { label: 'Asignación de Roles', icon: 'pi pi-fw pi-book', routerLink: ['/administrador/asignacionderolesadministrador/asignacionderolesadmin'] }
                 ]
             });
         }

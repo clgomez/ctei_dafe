@@ -8,11 +8,11 @@ import { Router } from '@angular/router';
 
 
 @Component({
-  selector: 'app-convocatoriasadministrador',
-  templateUrl: './convocatoriasadministrador.component.html',
-  styleUrls: ['./convocatoriasadministrador.component.css']
+  selector: 'app-convocatoriasadmin',
+  templateUrl: './convocatoriasadmin.component.html',
+  styleUrls: ['./convocatoriasadmin.component.css']
 })
-export class ConvocatoriasAdministradorComponent implements OnInit {
+export class ConvocatoriasAdminComponent implements OnInit {
   currentUser: User | null = null;
 
   convocatorias: Convocatoria[];

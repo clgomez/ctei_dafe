@@ -25,18 +25,20 @@ export class LoginComponent {
     this.authService.login(this.loginUser)
     .subscribe({
       next: (response) => {
-        if(this.authService.hasRole("ROL_INVESTIGADOR"))
+
+        /*
+        if(this.authService.hasRole('ROL_INVESTIGADOR'))
             this.router.navigate(['/investigador/homeinvestigador']);
-
-        if(this.authService.hasRole("ROL_TUTOR"))
+        if(this.authService.hasRole('ROL_TUTOR'))
             this.router.navigate(['/tutor/hometutor']);
-
-        if(this.authService.hasRole("ROL_EVALUADOR"))
+        if(this.authService.hasRole('ROL_EVALUADOR'))
             this.router.navigate(['/evaluador/homeevaluador']);
-
-        if(this.authService.hasRole("ROL_ADMINISTRADOR"))
+        if(this.authService.hasRole('ROL_ADMINISTRADOR'))
             this.router.navigate(['/administrador/homeadministrador']);
 
+        */
+
+        this.router.navigate(['/welcome']);
 
         alert('Exito al iniciar sesion')
       },

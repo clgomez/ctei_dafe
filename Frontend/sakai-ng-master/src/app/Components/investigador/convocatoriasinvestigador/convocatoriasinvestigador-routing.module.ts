@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ConvocatoriasInvestigadorComponent } from './convocatoriasinvestigador.component';
+import { AuthGuard } from 'src/app/Guards/auth.guard';
 
 @NgModule({
     imports: [RouterModule.forChild([
-        { path: '', component: ConvocatoriasInvestigadorComponent }
+        { path: 'convocatoriasinvest', loadChildren: () => import('./convocatoriasinvest/convocatoriasinvest.module').then(m => m.ConvocatoriasInvestModule), canActivate: [AuthGuard] },
+        { path: '**', redirectTo: '/login' }
     ])],
     exports: [RouterModule]
 })

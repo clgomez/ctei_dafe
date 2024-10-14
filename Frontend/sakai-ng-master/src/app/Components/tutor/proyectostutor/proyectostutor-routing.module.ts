@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { ProyectosTutorComponent } from './proyectostutor.component';
+import { AuthGuard } from 'src/app/Guards/auth.guard';
 
 @NgModule({
     imports: [RouterModule.forChild([
-        { path: '', component: ProyectosTutorComponent }
+        { path: 'proyectostut', loadChildren: () => import('./proyectostut/proyectostut.module').then(m => m.ProyectosTutModule), canActivate: [AuthGuard] },
+        { path: '**', redirectTo: '/login' }
     ])],
     exports: [RouterModule]
 })
