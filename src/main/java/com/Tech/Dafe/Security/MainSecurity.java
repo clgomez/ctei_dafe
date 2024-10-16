@@ -53,6 +53,7 @@ public class MainSecurity {
                         auth.requestMatchers("/auth/**").permitAll()
                                 .requestMatchers("/email/**").permitAll()
                                 .requestMatchers("/convocatorias/**").permitAll()
+                                .requestMatchers("/proyecto/**").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

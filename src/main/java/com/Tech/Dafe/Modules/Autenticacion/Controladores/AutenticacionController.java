@@ -28,6 +28,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -188,72 +189,7 @@ import java.util.Set;
     }
 
 
-    //Registrar un Formulador
-    /*@SuppressWarnings({ "rawtypes", "unchecked" })
-    @PostMapping("/formulador")
-    public ResponseEntity<?> Formulador(@Valid @RequestBody Nuevo_Usuario nuevoUsuario, BindingResult bindingResult) {
-
-        if (nuevoUsuario.getNombre() == null || nuevoUsuario.getNombre().isEmpty() ||
-                nuevoUsuario.getApellidos() == null || nuevoUsuario.getApellidos().isEmpty() ||
-                nuevoUsuario.getUsername() == null || nuevoUsuario.getUsername().isEmpty() ||
-                nuevoUsuario.getEmail() == null || nuevoUsuario.getEmail().isEmpty() ||
-                nuevoUsuario.getPassword() == null || nuevoUsuario.getPassword().isEmpty() ||
-                nuevoUsuario.getDireccion() == null || nuevoUsuario.getDireccion().isEmpty() ||
-                nuevoUsuario.getIdentificacion() == null || nuevoUsuario.getIdentificacion().isEmpty() ||
-                nuevoUsuario.getTelefono() == null || nuevoUsuario.getTelefono().isEmpty() ||
-                nuevoUsuario.getFecha_nacimiento() == null || nuevoUsuario.getFecha_nacimiento().isEmpty() ||
-                nuevoUsuario.getEstado() == null || nuevoUsuario.getEstado().isEmpty()) {
-
-            return ResponseEntity.badRequest().body(new Mensaje("Por favor, rellene todos los campos son obligatorios"));
-        }
-
-        if (bindingResult.hasErrors())
-            return ResponseEntity.badRequest().body(new Mensaje("Campos mal puestos o Email inválido"));
-
-        if (userService.existsByUserName(nuevoUsuario.getUsername()))
-            return ResponseEntity.badRequest().body(new Mensaje("Ese nombre de usuario ya existe"));
-
-        if (userService.existsByEmail(nuevoUsuario.getEmail()))
-            return ResponseEntity.badRequest().body(new Mensaje("Ese email ya existe"));
-
-        if (userService.existsByIdentificacion(nuevoUsuario.getIdentificacion()))
-            return ResponseEntity.badRequest().body(new Mensaje("El usuario con esa identificación ya existe"));
-
-        if (userService.existsByTelefono(nuevoUsuario.getTelefono()))
-            return ResponseEntity.badRequest().body(new Mensaje("Ese teléfono ya existe"));
-
-        Usuario usuario = new Usuario(
-                nuevoUsuario.getNombre(),
-                nuevoUsuario.getApellidos(),
-                nuevoUsuario.getDireccion(),
-                nuevoUsuario.getEmail(),
-                nuevoUsuario.getEstado(),
-                nuevoUsuario.getFecha_nacimiento(),
-                nuevoUsuario.getTipoIdentificacion(),
-                nuevoUsuario.getIdentificacion(),
-                nuevoUsuario.getGenero(),
-                nuevoUsuario.getOcupacion(),
-                nuevoUsuario.getUsername(),
-                passwordEncoder.encode(nuevoUsuario.getPassword()),
-                nuevoUsuario.getTelefono()
-        );
-
-        usuario.setFecha_registro(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-
-        Set<Rol> roles = new HashSet<>();
-        roles.add(rolService.getByRolName(RolNombre.ROL_FORMULADOR).get());
-
-        if (nuevoUsuario.getRoles().contains("admin"))
-            roles.add(rolService.getByRolName(RolNombre.ROL_FORMULADOR).get());
-
-        usuario.setRoles(roles);
-        userService.save(usuario);
-
-        return new ResponseEntity(new Mensaje("Formulador guardado satisfactoriamente"), HttpStatus.CREATED);
-    }
-*/
-
-@SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     @PostMapping("/evaluador")
     public ResponseEntity<?> Evaluador(@Valid @RequestBody Nuevo_Usuario nuevoUsuario, BindingResult bindingResult) {
 
@@ -413,4 +349,13 @@ import java.util.Set;
             JwtDto jwt = new JwtDto(token);
             return  new ResponseEntity<>(jwt, HttpStatus.OK);
         }
+
+        @GetMapping("/email/{email}")
+        public ResponseEntity<Usuario> obtenerUsuarioPorEmail(@PathVariable String email) {
+        Optional<Usuario> optUsuario = userService.getByEmail(email);
+        Usuario usuario = optUsuario.get();
+        return usuario != null ? new ResponseEntity<>(usuario, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+
     }

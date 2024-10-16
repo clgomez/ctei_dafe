@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Convocatoria } from 'src/app/Models/convocatoria.model';
 import { ConvocatoriaService } from 'src/app/Services/convocatoria.service';
-import { AuthGuard } from 'src/app/Guards/auth.guard';
 import { User } from 'src/app/Models/user.model';
 import { AuthService } from 'src/app/Services/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import * as moment from 'moment';
 
 
 @Component({
@@ -17,45 +17,75 @@ export class FormConvocatoriasAdminComponent implements OnInit {
 
   convocatorias: Convocatoria[];
 
+  public convocatoria: Convocatoria = new Convocatoria;
+  public titulo: string = 'Crear Convocatoria';
+
   constructor(private convocatoriaService: ConvocatoriaService,
               private authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private activatedRoute: ActivatedRoute) { }
   ngOnInit() {
 
     this.authService.currentUser.subscribe(user => this.currentUser = user);
 
-    this.convocatoriaService.getConvocatorias().subscribe({
-        next: (respose) =>
-        { this.convocatorias = respose;
-          if(this.convocatorias.length == 0)
-             //swal.fire('lista vacia', `${respose.mensaje}:`, 'success')
-            console.log('lista vacia');
+    this.cargarConvocatoria();
 
-        },
-        //error: err => {
-          //console.log(err.error.mensaje)
-          //swal.fire("error al consultar productos en la bd", err.error.mensaje,"error");
-        //}
-        });
 
    }
 
-   eliminarConvocatoria(convocatoria: Convocatoria): void {
 
-        this.convocatoriaService.deleteConvocatoria(convocatoria.id).subscribe(
-          response => {
-            this.convocatorias = this.convocatorias.filter(conv => conv !== convocatoria)
-            /*swal.fire(
-              'Proyecto Eliminado!',
-              `Proyecto ${proyecto.titulo} eliminado con éxito.`,
-              'success'
-            )*/
-              //this.messageService.add({severity: 'success', summary: 'Success', detail: 'Proyecto Eliminado'});
-          }
+   cargarConvocatoria(): void{
+    this.activatedRoute.params.subscribe(params => {
+      let id = params['id']
+      if(id){
+        console.log('id', id);
+        this.convocatoriaService.getConvocatoria(id).subscribe( (convocatoria) => this.convocatoria = convocatoria)
+
+      }
+    })
+  }
+
+   public crearConvocatoria(): void{
+
+    this.convocatoriaService.createConvocatoria(this.convocatoria)
+        .subscribe(
+        (respose) =>
+        {
+            console.log(respose.fechaInicio);
+            this.router.navigate(['/administrador/convocatoriasadministrador/convocatoriasadmin']);
+
+        }
         )
+  }
+
+  public actualizarConvocatoria():void{
+
+    this.convocatoriaService.updateConvocatoria(this.convocatoria)
+        .subscribe( json => {
+            console.log(json.mensaje);
+            this.router.navigate(['/administrador/convocatoriasadministrador/convocatoriasadmin']);
+
+      }
+    )
+  }
+
+  formatDate(date: Date | null): string {
+    if (!date) return '';
+
+    return moment(date).format('DD/MM/YYYY');
+  }
+
+  onDateChangeFechaInicio(event: any) {
+    console.log('Fecha seleccionada:', event.value);
+    this.convocatoria.fechaInicio = this.formatDate(new Date(this.convocatoria.fechaInicio));
 
   }
 
+  onDateChangeFechaFin(event: any) {
+    console.log('Fecha seleccionada:', event.value);
+    this.convocatoria.fechaFin = this.formatDate(new Date(this.convocatoria.fechaFin));
+
+  }
 
    logout() {
     this.authService.logout();

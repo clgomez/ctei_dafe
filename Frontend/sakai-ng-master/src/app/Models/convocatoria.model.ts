@@ -1,9 +1,9 @@
-export interface Convocatoria {
+export class Convocatoria {
     id?: number;
     descripcion: string;
-    fecha_fin: string;
-    fecha_inicio: string;
+    fechaInicio: string;
+    fechaFin: string;
     estado: string;
-    password: string;
-    direccion: string;
+
   }
+

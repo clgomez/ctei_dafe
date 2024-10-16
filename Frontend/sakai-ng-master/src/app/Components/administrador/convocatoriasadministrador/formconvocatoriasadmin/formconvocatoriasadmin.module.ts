@@ -6,12 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { HttpClientModule } from '@angular/common/http';
+import { CalendarModule } from 'primeng/calendar';
+import { TagModule } from 'primeng/tag';
 
 @NgModule({
     imports: [
         CommonModule,
         FormConvocatoriasAdminRoutingModule,
-        FormsModule, HttpClientModule, TableModule, ButtonModule
+        FormsModule, HttpClientModule, TableModule, ButtonModule, CalendarModule, TagModule
     ],
     declarations: [FormConvocatoriasAdminComponent]
 })

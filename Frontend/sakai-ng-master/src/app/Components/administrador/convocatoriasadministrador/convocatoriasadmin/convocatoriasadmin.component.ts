@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Convocatoria } from 'src/app/Models/convocatoria.model';
 import { ConvocatoriaService } from 'src/app/Services/convocatoria.service';
-import { AuthGuard } from 'src/app/Guards/auth.guard';
 import { User } from 'src/app/Models/user.model';
 import { AuthService } from 'src/app/Services/auth.service';
 import { Router } from '@angular/router';

@@ -49,8 +49,8 @@ public class InscripcionServiceImpl implements InscripcionService {
         }
 
         Convocatoria convocatoria = convocatoriaOpt.get();
-        LocalDate fechaInicio = LocalDate.parse(convocatoria.getFecha_inicio());
-        LocalDate fechaFin = LocalDate.parse(convocatoria.getFecha_fin());
+        LocalDate fechaInicio = LocalDate.parse(convocatoria.getFechaInicio());
+        LocalDate fechaFin = LocalDate.parse(convocatoria.getFechaFin());
         LocalDate hoy = LocalDate.now();
 
         if (hoy.isBefore(fechaInicio) || hoy.isAfter(fechaFin)) {

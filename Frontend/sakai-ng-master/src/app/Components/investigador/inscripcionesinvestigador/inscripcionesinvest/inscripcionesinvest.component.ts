@@ -6,11 +6,11 @@ import { AuthService } from '../../../../Services/auth.service';
 import { User } from '../../../../Models/user.model';
 
 @Component({
-  selector: 'app-convocatoriasinvest',
-  templateUrl: './convocatoriasinvest.component.html',
-  styleUrls: ['./convocatoriasinvest.component.css']
+  selector: 'app-inscripcionesinvest',
+  templateUrl: './inscripcionesinvest.component.html',
+  styleUrls: ['./inscripcionesinvest.component.css']
 })
-export class ConvocatoriasInvestComponent implements OnInit {
+export class InscripcionesInvestComponent implements OnInit {
   currentUser: User | null = null;
 
   convocatorias: Convocatoria[];

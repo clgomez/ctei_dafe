@@ -43,5 +43,5 @@ public class UsuarioServiceImpl implements UsuarioService {
     public Optional<Rol> findRolByNombre(RolNombre rolNombre) {
         return rolRepository.findByRolNombre(rolNombre);
     }
-
+  
 }

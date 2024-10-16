@@ -3,20 +3,20 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from '../Environments/environment';
-import { Convocatoria } from '../Models/convocatoria.model';
+import { Proyecto } from '../Models/proyecto.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ConvocatoriaService {
-  private apiUrl = `${environment.apiUrl}/convocatorias`;
+export class ProyectoService {
+  private apiUrl = `${environment.apiUrl}/proyecto`;
 
   constructor( private http: HttpClient) {}
 
-createConvocatoria(convocatoria: Convocatoria) : Observable<Convocatoria> {
+createProyecto(proyecto: Proyecto) : Observable<Proyecto> {
        //return this.http.post<Convocatoria>(this.apiUrl, convocatoria,{headers: this.httpHeaders})
-         return this.http.post<Convocatoria>(this.apiUrl, convocatoria)
-                    .pipe(map((response) => response as Convocatoria),
+         return this.http.post<Proyecto>(this.apiUrl, proyecto)
+                    .pipe(map((response) => response as Proyecto),
                       catchError((e) => {
                           //console.error(e.error.mensaje);
                           //swal.fire("Error al crear el producto", e.error.mensaje,"error");
@@ -26,10 +26,10 @@ createConvocatoria(convocatoria: Convocatoria) : Observable<Convocatoria> {
 
   }
 
-  getConvocatorias(): Observable <Convocatoria[]>
+  getProyectos(): Observable <Proyecto[]>
   {
-    return this.http.get<Convocatoria[]>(this.apiUrl)
-                    .pipe(map((response) => response as Convocatoria[]),
+    return this.http.get<Proyecto[]>(this.apiUrl)
+                    .pipe(map((response) => response as Proyecto[]),
                      catchError((e) => {
                         //console.error(e.error.mensaje);
                         //swal.fire("error al consultar proyectos en la bd", e.error.mensaje,"error");
@@ -38,15 +38,14 @@ createConvocatoria(convocatoria: Convocatoria) : Observable<Convocatoria> {
            );
   }
 
-  getConvocatoria(idConvocatoria: number): Observable<Convocatoria>{
+  getProyecto(idProyecto: number): Observable<Proyecto>{
 
-    return this.http.get<Convocatoria>(`${this.apiUrl}/${idConvocatoria}`)
+    return this.http.get<Proyecto>(`${this.apiUrl}/${idProyecto}`)
   }
 
-  updateConvocatoria(convocatoria: Convocatoria): Observable<any>{
+  updateProyecto(proyecto: Proyecto): Observable<any>{
 
-    return this.http.put<any>(`${this.apiUrl}/${convocatoria.id}`,
-                     convocatoria)
+    return this.http.put<any>(`${this.apiUrl}/${proyecto.id}`,proyecto)
                     .pipe(
                       catchError((e) => {
                         console.error(e.error.mensaje);
@@ -55,9 +54,9 @@ createConvocatoria(convocatoria: Convocatoria) : Observable<Convocatoria> {
               );
 }
 
-  deleteConvocatoria(idConvocatoria: number): Observable<Convocatoria>{
+  deleteProyecto(idProyecto: number): Observable<Proyecto>{
 
-    return this.http.delete<Convocatoria>(`${this.apiUrl}/${idConvocatoria}`)
+    return this.http.delete<Proyecto>(`${this.apiUrl}/${idProyecto}`)
     .pipe(
       catchError(e => {
         console.error(e.error.mensaje);

@@ -27,13 +27,13 @@ public class Proyecto {
 
     private String descripcion;
     private String estado;
-    private String fecha_actualizacion;
-    private String fecha_creacion;
+    private String fechaActualizacion;
+    private String fechaCreacion;
     private String justificacion;
     private String observaciones;
-    private String poblacion_objetivo;
+    private String poblacionObjetivo;
     private String presupuesto;
-    private String resultados_esperados;
+    private String resultadosEsperados;
     private String titulo;
 
     @ManyToOne

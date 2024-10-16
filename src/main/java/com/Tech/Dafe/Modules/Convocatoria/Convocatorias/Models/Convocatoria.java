@@ -20,9 +20,9 @@ public class Convocatoria {
     private Long id;
 
     private String descripcion;
+    private String fechaInicio;
+    private String fechaFin;
     private String estado;
-    private String fecha_fin;
-    private String fecha_inicio;
 
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @OneToOne(mappedBy = "convocatoria", cascade = CascadeType.ALL)

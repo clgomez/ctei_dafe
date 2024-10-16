@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/proyecto")
 public class ProyectoController {
 
@@ -70,14 +71,14 @@ public class ProyectoController {
             proyecto.setEstado(proyectoDTO.getEstado());
 
             String fechaActual = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-            proyecto.setFecha_creacion(fechaActual);
-            proyecto.setFecha_actualizacion(fechaActual);
+            proyecto.setFechaCreacion(fechaActual);
+            proyecto.setFechaActualizacion(fechaActual);
 
             proyecto.setJustificacion(proyectoDTO.getJustificacion());
             proyecto.setObservaciones(proyectoDTO.getObservaciones());
-            proyecto.setPoblacion_objetivo(proyectoDTO.getPoblacion_objetivo());
+            proyecto.setPoblacionObjetivo(proyectoDTO.getPoblacionObjetivo());
             proyecto.setPresupuesto(proyectoDTO.getPresupuesto());
-            proyecto.setResultados_esperados(proyectoDTO.getResultados_esperados());
+            proyecto.setResultadosEsperados(proyectoDTO.getResultadosEsperados());
             proyecto.setTitulo(proyectoDTO.getTitulo());
             proyecto.setUsuario(usuario);
 
@@ -115,13 +116,13 @@ public class ProyectoController {
         proyectoDb.setEstado(proyecto.getEstado());
         proyectoDb.setJustificacion(proyecto.getJustificacion());
         proyectoDb.setObservaciones(proyecto.getObservaciones());
-        proyectoDb.setPoblacion_objetivo(proyecto.getPoblacion_objetivo());
+        proyectoDb.setPoblacionObjetivo(proyecto.getPoblacionObjetivo());
         proyectoDb.setPresupuesto(proyecto.getPresupuesto());
-        proyectoDb.setResultados_esperados(proyecto.getResultados_esperados());
+        proyectoDb.setResultadosEsperados(proyecto.getResultadosEsperados());
         proyectoDb.setTitulo(proyecto.getTitulo());
 
         String fechaActual = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        proyectoDb.setFecha_actualizacion(fechaActual);
+        proyectoDb.setFechaActualizacion(fechaActual);
 
         return ResponseEntity.ok(proyectoService.save(proyectoDb));
     }

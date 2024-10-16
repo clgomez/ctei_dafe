@@ -50,7 +50,7 @@ export class AuthService {
     this.currentUserSubject.next(user);
   }
 
-  private getUserFromToken(): User | null {
+  public getUserFromToken(): User | null {
     const token = this.tokenService.getToken();
     if (token) {
       const payload = JSON.parse(atob(token.split('.')[1]));
@@ -110,5 +110,12 @@ export class AuthService {
     })
   );
 }
+
+
+    getUserbyEmail(email: string): Observable<User>
+    {
+
+        return this.http.get<User>(`${this.apiUrl}/email/${email}`)
+    }
 
 }

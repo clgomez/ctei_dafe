@@ -24,8 +24,8 @@ public class ConvocatoriaServiceImpl implements ConvocatoriaService {
         Convocatoria convocatoria = new Convocatoria();
         convocatoria.setDescripcion(convocatoriaDTO.getDescripcion());
         convocatoria.setEstado("ACTIVA");
-        convocatoria.setFecha_fin(convocatoriaDTO.getFechaFin());
-        convocatoria.setFecha_inicio(convocatoriaDTO.getFechaInicio());
+        convocatoria.setFechaFin(convocatoriaDTO.getFechaFin());
+        convocatoria.setFechaInicio(convocatoriaDTO.getFechaInicio());
 
         Convocatoria nuevaConvocatoria = convocatoriaRepository.save(convocatoria);
         notificacionService.enviarNotificacionesPorRol(RolNombre.ROL_INVESTIGADOR, "Nueva convocatoria creada: " + nuevaConvocatoria.getDescripcion());
@@ -47,8 +47,8 @@ public class ConvocatoriaServiceImpl implements ConvocatoriaService {
         if (convocatoria != null) {
             convocatoria.setDescripcion(convocatoriaDTO.getDescripcion());
             convocatoria.setEstado(convocatoriaDTO.getEstado());
-            convocatoria.setFecha_fin(convocatoriaDTO.getFechaFin());
-            convocatoria.setFecha_inicio(convocatoriaDTO.getFechaInicio());
+            convocatoria.setFechaFin(convocatoriaDTO.getFechaFin());
+            convocatoria.setFechaInicio(convocatoriaDTO.getFechaInicio());
             return convocatoriaRepository.save(convocatoria);
         }
         return null;
