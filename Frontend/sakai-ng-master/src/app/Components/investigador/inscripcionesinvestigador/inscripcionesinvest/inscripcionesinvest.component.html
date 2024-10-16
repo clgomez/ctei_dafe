@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="logo">
+        <h1>Dafe</h1>
+    </div>
+    <ul class="nav-links">
+        <li><a routerLink="/welcome">Investigador</a></li>
+        <li><a routerLink="/welcome">Perfil</a></li>
+        <li><a routerLink="/welcome">Configuración</a></li>
+        <li><a routerLink="/welcome">Ayuda</a></li>
+    </ul>
+    <button (click)="logout()" class="logout-button">Cerrar sesión</button>
+  </div>
+
+  <div class="welcome-container">
+    <h1>¡Bienvenido {{ currentUser ? currentUser.username : '' }}!</h1>
+  </div>
+
+  <div *ngIf="convocatorias?.length==0" class="alert alert-info">
+    No hay registros en la base de datos
+</div>
+
+<p-table [value]="convocatorias" [tableStyle]="{'min-width': '50rem' } ">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th>Id </th>
+            <th>Descripción</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Finalización</th>
+            <th>Estado</th>
+        </tr>
+    </ng-template>
+    <ng-template  pTemplate="body" let-convocatoria let-columns="columns" >
+        <tr >
+            <td>
+                {{convocatoria.id}}
+            </td>
+            <td>
+                {{convocatoria.descripcion}}
+            </td>
+            <td>
+                {{convocatoria.fechaInicio}}
+            </td>
+            <td>
+                {{convocatoria.fechaFin}}
+            </td>
+            <td>
+                {{convocatoria.estado}}
+            </td>
+            <td>
+                <button pButton pRipple type="button" name="editar" [routerLink]="['/investigador/investigador/formconvocatoriasadmin', convocatoria.id]" icon="pi pi-file-edit" class="p-button-rounded p-button-text"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+
+
+</body>
+</html>

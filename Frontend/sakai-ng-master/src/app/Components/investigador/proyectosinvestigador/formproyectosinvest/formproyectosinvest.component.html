@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="logo">
+        <h1>Dafe</h1>
+    </div>
+    <ul class="nav-links">
+        <li><a routerLink="/welcome">Investigador</a></li>
+        <li><a routerLink="/welcome">Perfil</a></li>
+        <li><a routerLink="/welcome">Configuración</a></li>
+        <li><a routerLink="/welcome">Ayuda</a></li>
+    </ul>
+    <button (click)="logout()" class="logout-button">Cerrar sesión</button>
+  </div>
+
+  <div class="welcome-container">
+    <h1>¡Bienvenido {{ currentUser ? currentUser.username : '' }}!</h1>
+  </div>
+
+<div class="card bg-dark text-black">
+    <div class="card-header"><p-tag severity="primary" value="{{ titulo }}"></p-tag></div>
+    <div class="card-body">
+      <form>
+        <div class="form-group row">
+          <label for="titulo" class="col-form-label col-sm-2">Titulo</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="proyecto.titulo" name="titulo">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="descripcion" class="col-form-label col-sm-2">Descripción</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="proyecto.descripcion" name="descripcion">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="poblacionObjetivo" class="col-form-label col-sm-2">Población Objetivo</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="proyecto.poblacionObjetivo" name="poblacionObjetivo">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="justificacion" class="col-form-label col-sm-2">Justificación</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="proyecto.justificacion" name="justificacion">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="presupuesto" class="col-form-label col-sm-2">Presupuesto</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="proyecto.presupuesto" name="presupuesto">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="resultadosEsperados" class="col-form-label col-sm-2">Resultados Esperados</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="proyecto.resultadosEsperados" name="resultadosEsperados">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="observaciones" class="col-form-label col-sm-2">Observaciones</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="proyecto.observaciones" name="observaciones">
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="estado" class="col-form-label col-sm-2">Estado</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="proyecto.estado" name="estado">
+          </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+              <button class="btn btn-primary" type="button" (click)='mostrarVistaPrevia()'>Vista Previa</button>
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>
