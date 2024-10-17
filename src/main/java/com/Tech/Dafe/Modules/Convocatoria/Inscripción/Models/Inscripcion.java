@@ -24,7 +24,7 @@ public class Inscripcion {
     private String fechaInscripcion;
     private String estado = "PENDIENTE";
 
-    private String fecha_actualizacion;
+    private String fechaActualizacion;
 
     @JsonIgnore
     @ManyToOne

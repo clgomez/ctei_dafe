@@ -6,12 +6,13 @@ import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
     imports: [
         CommonModule,
         ProyectosInvestRoutingModule,
-        FormsModule, TableModule, ButtonModule, DialogModule
+        FormsModule, TableModule, ButtonModule, DialogModule, TooltipModule
     ],
     declarations: [ProyectosInvestComponent]
 })

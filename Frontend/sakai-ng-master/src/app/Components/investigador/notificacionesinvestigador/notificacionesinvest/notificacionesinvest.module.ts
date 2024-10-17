@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InscripcionesInvestRoutingModule } from './inscripcionesinvest-routing.module';
-import { InscripcionesInvestComponent } from './inscripcionesinvest.component';
+import { NotificacionesInvestRoutingModule } from './notificacionesinvest-routing.module';
+import { NotificacionesInvestComponent } from './notificacionesinvest.component';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
@@ -10,9 +10,9 @@ import { TooltipModule } from 'primeng/tooltip';
 @NgModule({
     imports: [
         CommonModule,
-        InscripcionesInvestRoutingModule,
+        NotificacionesInvestRoutingModule,
         FormsModule, TableModule, ButtonModule, TooltipModule
     ],
-    declarations: [InscripcionesInvestComponent]
+    declarations: [NotificacionesInvestComponent]
 })
-export class InscripcionesInvestModule { }
+export class NotificacionesInvestModule { }

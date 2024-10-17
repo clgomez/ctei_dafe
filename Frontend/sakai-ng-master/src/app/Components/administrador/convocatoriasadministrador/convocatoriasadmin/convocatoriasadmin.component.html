@@ -26,9 +26,7 @@
 
   <div class="card-header" >
     <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item" routerLinkActive="active" >
-        <button pButton pRipple type="button" name="crear" [routerLink]="['/administrador/convocatoriasadministrador/formconvocatoriasadmin']" icon="pi pi-file" class="p-button-rounded p-button-info p-button-text">Nueva Convocatoria</button>
-      </li>
+       <button pButton pRipple type="button" name="crear" [routerLink]="['/administrador/convocatoriasadministrador/formconvocatoriasadmin']" icon="pi pi-file" class="p-button-rounded p-button-info p-button-text" pTooltip="Crear convocatoria">Nueva Convocatoria</button>
     </ul>
   </div>
 
@@ -64,8 +62,8 @@
                 {{convocatoria.estado}}
             </td>
             <td>
-                <button pButton pRipple type="button" name="editar" [routerLink]="['/administrador/convocatoriasadministrador/formconvocatoriasadmin', convocatoria.id]" icon="pi pi-file-edit" class="p-button-rounded p-button-text"></button>
-                <button pButton pRipple type="button" name="eliminar" (click)='eliminarConvocatoria(convocatoria)' icon="pi pi-trash" class="p-button-rounded p-button-info p-button-text"></button>
+                <button pButton pRipple type="button" name="editar" [routerLink]="['/administrador/convocatoriasadministrador/formconvocatoriasadmin', convocatoria.id]" icon="pi pi-file-edit" class="p-button-rounded p-button-text" pTooltip="Editar convocatoria"></button>
+                <button pButton pRipple type="button" name="eliminar" (click)='eliminarConvocatoria(convocatoria)' icon="pi pi-trash" class="p-button-rounded p-button-info p-button-text" pTooltip="Eliminar convocatoria"></button>
             </td>
         </tr>
     </ng-template>

@@ -6,12 +6,13 @@ import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { HttpClientModule } from '@angular/common/http';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
     imports: [
         CommonModule,
         ConvocatoriasAdminRoutingModule,
-        FormsModule, HttpClientModule, TableModule, ButtonModule
+        FormsModule, HttpClientModule, TableModule, ButtonModule, TooltipModule
     ],
     declarations: [ConvocatoriasAdminComponent]
 })

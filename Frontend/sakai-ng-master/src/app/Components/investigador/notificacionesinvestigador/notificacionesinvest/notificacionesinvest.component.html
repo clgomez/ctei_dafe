@@ -24,39 +24,39 @@
     <h1>¡Bienvenido {{ currentUser ? currentUser.username : '' }}!</h1>
   </div>
 
-  <div *ngIf="convocatorias?.length==0" class="alert alert-info">
+  <div *ngIf="notificaciones?.length==0" class="alert alert-info">
     No hay registros en la base de datos
 </div>
 
-<p-table [value]="convocatorias" [tableStyle]="{'min-width': '50rem' } ">
+<p-table [value]="notificaciones" [tableStyle]="{'min-width': '50rem' } ">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th>Id </th>
-            <th>Descripción</th>
-            <th>Fecha de Inicio</th>
-            <th>Fecha de Finalización</th>
+            <th>Mensaje</th>
+            <th>Fecha de Notificacion</th>
+            <th>Leida</th>
             <th>Estado</th>
         </tr>
     </ng-template>
-    <ng-template  pTemplate="body" let-convocatoria let-columns="columns" >
+    <ng-template  pTemplate="body" let-notificacion let-columns="columns" >
         <tr >
             <td>
-                {{convocatoria.id}}
+                {{notificacion.id}}
             </td>
             <td>
-                {{convocatoria.descripcion}}
+                {{notificacion.mensaje}}
             </td>
             <td>
-                {{convocatoria.fechaInicio}}
+                {{notificacion.fechaNotificacion}}
             </td>
             <td>
-                {{convocatoria.fechaFin}}
+                {{notificacion.leida}}
             </td>
             <td>
-                {{convocatoria.estado}}
+                {{notificacion.estado}}
             </td>
             <td>
-                <button pButton pRipple type="button" name="inscribirse a convocatoria" (click)='inscribirProyecto(convocatoria)' icon="pi pi-pencil" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Inscribirse a convocatoria"></button>
+                <button pButton pRipple type="button" name="eliminar" (click)='eliminarNotificacion(notificacion)' icon="pi pi-trash" class="p-button-rounded p-button-info p-button-text" pTooltip="Eliminar proyecto" pTooltip="Eliminar notificación"></button>
             </td>
         </tr>
     </ng-template>

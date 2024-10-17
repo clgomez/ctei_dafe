@@ -72,7 +72,8 @@ export class FormConvocatoriasAdminComponent implements OnInit {
   formatDate(date: Date | null): string {
     if (!date) return '';
 
-    return moment(date).format('DD/MM/YYYY');
+    //return moment(date).format('DD/MM/YYYY');
+    return moment(date).format('YYYY-MM-DD');
   }
 
   onDateChangeFechaInicio(event: any) {

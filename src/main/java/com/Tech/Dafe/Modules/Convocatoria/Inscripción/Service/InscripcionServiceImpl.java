@@ -102,7 +102,8 @@ public class InscripcionServiceImpl implements InscripcionService {
         }
 
         String fechaActualizacion = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date());
-        inscripcion.setFecha_actualizacion(fechaActualizacion);
+        
+        inscripcion.setFechaActualizacion(fechaActualizacion);
 
         inscripcion.setConvocatoria(convocatoriaRepository.findById(dto.getConvocatoriaId())
                 .orElseThrow(() -> new IllegalArgumentException(new Mensaje("Convocatoria no encontrada.").getMensaje())));

@@ -8,6 +8,7 @@ import { AuthGuard } from 'src/app/Guards/auth.guard';
         { path: 'convocatoriasinvestigador', loadChildren: () => import('./convocatoriasinvestigador/convocatoriasinvestigador.module').then(m => m.ConvocatoriasInvestigadorModule), canActivate: [AuthGuard] },
         { path: 'proyectosinvestigador', loadChildren: () => import('./proyectosinvestigador/proyectosinvestigador.module').then(m => m.ProyectosInvestigadorModule), canActivate: [AuthGuard] },
         { path: 'inscripcionesinvestigador', loadChildren: () => import('./inscripcionesinvestigador/inscripcionesinvestigador.module').then(m => m.InscripcionesInvestigadorModule), canActivate: [AuthGuard] },
+        { path: 'notificacionesinvestigador', loadChildren: () => import('./notificacionesinvestigador/notificacionesinvestigador.module').then(m => m.NotificacionesInvestigadorModule), canActivate: [AuthGuard] },
         { path: '**', redirectTo: '/login' }
     ])],
     exports: [RouterModule]

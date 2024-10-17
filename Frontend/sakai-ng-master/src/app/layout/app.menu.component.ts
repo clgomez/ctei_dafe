@@ -47,7 +47,7 @@ export class AppMenuComponent implements OnInit {
             this.model.push({
                 label: 'Herramientas de Usuario Investigador',
                 items: [
-                    { label: 'Convocatorias', icon: 'pi pi-fw pi-calendar', routerLink: ['/investigador/convocatoriasinvestigador/convocatoriasinvest'] },
+                    { label: 'Notificaciones', icon: 'pi pi-fw pi-bell', routerLink: ['/investigador/notificacionesinvestigador/notificacionesinvest'] },
                     { label: 'Proyectos', icon: 'pi pi-fw pi-book', routerLink: ['/investigador/proyectosinvestigador/proyectosinvest'] }
                 ]
             });

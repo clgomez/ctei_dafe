@@ -26,7 +26,7 @@
 
   <div class="card-header" >
     <ul class="nav nav-tabs card-header-tabs">
-        <button pButton pRipple type="button" name="crear" [routerLink]="['/investigador/proyectosinvestigador/formproyectosinvest']" icon="pi pi-file" class="p-button-rounded p-button-info p-button-text">Nuevo Proyecto</button>
+        <button pButton pRipple type="button" name="crear" [routerLink]="['/investigador/proyectosinvestigador/formproyectosinvest']" icon="pi pi-file" class="p-button-rounded p-button-info p-button-text" pTooltip="Crear proyecto">Nuevo Proyecto</button>
     </ul>
   </div>
 
@@ -62,9 +62,11 @@
                 {{proyecto.estado}}
             </td>
             <td>
-                <button pButton pRipple type="button" name="editar" [routerLink]="['/investigador/proyectosinvestigador/formproyectosinvest', proyecto.id]" icon="pi pi-file-edit" class="p-button-rounded p-button-text"></button>
-                <button pButton pRipple type="button" name="eliminar" (click)='eliminarProyecto(proyecto)' icon="pi pi-trash" class="p-button-rounded p-button-info p-button-text"></button>
-                <button pButton pRipple type="button" name="ver detalle" (click)='mostrarDetalleProyecto(proyecto)' icon="pi pi-search" class="p-button-rounded p-button-secondary p-button-text"></button>
+                <button pButton pRipple type="button" name="editar" [routerLink]="['/investigador/proyectosinvestigador/formproyectosinvest', proyecto.id]" icon="pi pi-file-edit" class="p-button-rounded p-button-text" pTooltip="Editar proyecto"></button>
+                <button pButton pRipple type="button" name="eliminar" (click)='eliminarProyecto(proyecto)' icon="pi pi-trash" class="p-button-rounded p-button-info p-button-text" pTooltip="Eliminar proyecto"></button>
+                <button pButton pRipple type="button" name="ver detalle" (click)='mostrarDetalleProyecto(proyecto)' icon="pi pi-search" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Ver detalle proyecto"></button>
+                <!--<button pButton pRipple type="button" name="inscribirse a convocatoria" [routerLink]="['/investigador/inscripcionesinvestigador/inscripcionesinvest', proyecto.id]" icon="pi pi-pencil" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Inscribirlo a convocatoria"></button>-->
+                <button pButton pRipple type="button" name="inscribirse a convocatoria" [routerLink]="['/investigador/inscripcionesinvestigador/inscripcionesinvest', proyecto.id]" icon="pi pi-pencil" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Inscribir proyecto"></button>
             </td>
         </tr>
     </ng-template>
