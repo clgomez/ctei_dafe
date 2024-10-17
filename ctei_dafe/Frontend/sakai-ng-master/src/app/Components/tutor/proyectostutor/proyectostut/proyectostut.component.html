@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="logo">
+        <h1>Dafe</h1>
+    </div>
+    <ul class="nav-links">
+        <li><a routerLink="/welcome">Tutor</a></li>
+        <li><a routerLink="/welcome">Perfil</a></li>
+        <li><a routerLink="/welcome">Configuración</a></li>
+        <li><a routerLink="/welcome">Ayuda</a></li>
+    </ul>
+    <button (click)="logout()" class="logout-button">Cerrar sesión</button>
+  </div>
+
+  <div class="welcome-container">
+    <h1>¡Bienvenido {{ currentUser ? currentUser.username : '' }}!</h1>
+  </div>
+
+
+
+</body>
+</html>

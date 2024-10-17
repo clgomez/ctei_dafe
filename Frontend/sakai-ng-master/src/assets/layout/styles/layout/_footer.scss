@@ -1,8 +1,57 @@
 .layout-footer {
-    transition: margin-left $transitionDuration;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding-top: 1rem;
-    border-top: 1px solid var(--surface-border);
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    background-image: url('/assets/layout/images/banner-dafe.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-top: 1px solid #a0a0a0;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+
+    .footer-images {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .footer-logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+
+        .footer-banner-container {
+            width: 300px;
+            overflow: hidden;
+            position: relative;
+
+            .footer-slider {
+                display: flex;
+                transition: transform 0.5s ease-in-out;
+
+                .footer-banner {
+                    max-width: 200%;
+                    height: auto;
+                    max-height: 250px;
+                    border-radius: 8px;
+                }
+            }
+        }
+    }
+
+    .footer-content {
+        font-size: 1.5em;
+        color: #fff;
+        text-align: center;
+        margin: 10px 0;
+        padding: 5px;
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 5px; 
+
+        .font-medium {
+            font-weight: bold;
+        }
+    }
+
 }
