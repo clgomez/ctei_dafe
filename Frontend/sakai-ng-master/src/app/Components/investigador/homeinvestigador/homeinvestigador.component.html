@@ -1,30 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Dafe</title>
+  <link rel="stylesheet" href="homeinvestigador.component.css"> <!-- Asegúrate de que el enlace al CSS sea correcto -->
 </head>
 <body>
 
   <div class="navbar">
     <div class="logo">
-        <h1>Dafe</h1>
+      <h1>Dafe</h1>
     </div>
     <ul class="nav-links">
-        <li><a routerLink="/welcome">Investigador</a></li>
-        <li><a routerLink="/welcome">Perfil</a></li>
-        <li><a routerLink="/welcome">Configuración</a></li>
-        <li><a routerLink="/welcome">Ayuda</a></li>
+      <li><a routerLink="/welcome">Investigador</a></li>
+      <li><a routerLink="/welcome">Perfil</a></li>
+      <li><a routerLink="/welcome">Configuración</a></li>
+      <li><a routerLink="/welcome">Ayuda</a></li>
     </ul>
     <button (click)="logout()" class="logout-button">Cerrar sesión</button>
   </div>
 
   <div class="welcome-container">
-    <h1>¡Bienvenido {{ currentUser ? currentUser.username : '' }}!</h1>
+    <h1>¡Bienvenido {{ currentUser ? currentUser.username : 'invité' }}!</h1>
+    <p>Estamos emocionados de tenerte aquí. Explora nuestras funciones y disfruta de la experiencia.</p>
   </div>
-
-
 
 </body>
 </html>
