@@ -48,7 +48,9 @@ export class AppMenuComponent implements OnInit {
                 label: 'Herramientas de Usuario Investigador',
                 items: [
                     { label: 'Notificaciones', icon: 'pi pi-fw pi-bell', routerLink: ['/investigador/notificacionesinvestigador/notificacionesinvest'] },
-                    { label: 'Proyectos', icon: 'pi pi-fw pi-book', routerLink: ['/investigador/proyectosinvestigador/proyectosinvest'] }
+                    { label: 'Convocatorias', icon: 'pi pi-fw pi-megaphone', routerLink: ['/investigador/convocatoriasinvestigador/convocatoriasinvest'] },
+                    { label: 'Proyectos', icon: 'pi pi-fw pi-lightbulb', routerLink: ['/investigador/proyectosinvestigador/proyectosinvest'] },
+                    { label: 'Inscripciones', icon: 'pi pi-fw pi-book', routerLink: ['/investigador/inscripcionesinvestigador/inscripcionesinvest'] }
                 ]
             });
         }
@@ -74,7 +76,7 @@ export class AppMenuComponent implements OnInit {
             this.model.push({
                 label: 'Herramientas de Usuario Evaluador',
                 items: [
-                    { label: 'Proyectos', icon: 'pi pi-fw pi-book', routerLink: ['/evaluador/proyectosevaluador/proyectoseval'] }
+                    { label: 'Proyectos', icon: 'pi pi-fw pi-lightbulb', routerLink: ['/evaluador/proyectosevaluador/proyectoseval'] }
                 ]
             });
         }
@@ -87,9 +89,10 @@ export class AppMenuComponent implements OnInit {
             this.model.push({
                 label: 'Herramientas de Usuario Administrador',
                 items: [
-                    { label: 'Convocatorias', icon: 'pi pi-fw pi-calendar', routerLink: ['/administrador/convocatoriasadministrador/convocatoriasadmin'] },
-                    { label: 'Proyectos', icon: 'pi pi-fw pi-book', routerLink: ['/administrador/proyectosadministrador/proyectosadmin'] },
-                    { label: 'Asignación de Roles', icon: 'pi pi-fw pi-book', routerLink: ['/administrador/asignacionderolesadministrador/asignacionderolesadmin'] }
+                    { label: 'Convocatorias', icon: 'pi pi-fw pi-megaphone', routerLink: ['/administrador/convocatoriasadministrador/convocatoriasadmin'] },
+                    { label: 'Proyectos', icon: 'pi pi-fw pi-lightbulb', routerLink: ['/administrador/proyectosadministrador/proyectosadmin'] },
+                    { label: 'Inscripciones', icon: 'pi pi-fw pi-book', routerLink: ['/administrador/inscripcionesadministrador/inscripcionesadmin'] },
+                    { label: 'Asignación de Roles', icon: 'pi pi-fw pi-user-plus', routerLink: ['/administrador/asignacionderolesadministrador/asignacionderolesadmin'] }
                 ]
             });
         }

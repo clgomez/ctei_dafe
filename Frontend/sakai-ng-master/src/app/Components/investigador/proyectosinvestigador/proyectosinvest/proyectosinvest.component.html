@@ -66,7 +66,7 @@
                 <button pButton pRipple type="button" name="eliminar" (click)='eliminarProyecto(proyecto)' icon="pi pi-trash" class="p-button-rounded p-button-info p-button-text" pTooltip="Eliminar proyecto"></button>
                 <button pButton pRipple type="button" name="ver detalle" (click)='mostrarDetalleProyecto(proyecto)' icon="pi pi-search" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Ver detalle proyecto"></button>
                 <!--<button pButton pRipple type="button" name="inscribirse a convocatoria" [routerLink]="['/investigador/inscripcionesinvestigador/inscripcionesinvest', proyecto.id]" icon="pi pi-pencil" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Inscribirlo a convocatoria"></button>-->
-                <button pButton pRipple type="button" name="inscribirse a convocatoria" [routerLink]="['/investigador/inscripcionesinvestigador/inscripcionesinvest', proyecto.id]" icon="pi pi-pencil" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Inscribir proyecto"></button>
+                <button pButton pRipple type="button" name="inscribir proyecto" [routerLink]="['/investigador/inscripcionesinvestigador/inscripcionproyectoinvest', proyecto.id]" icon="pi pi-pencil" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Inscribir proyecto"></button>
             </td>
         </tr>
     </ng-template>

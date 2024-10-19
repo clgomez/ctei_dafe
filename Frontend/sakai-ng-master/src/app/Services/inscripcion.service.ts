@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { environment } from '../Environments/environment';
 import { InscripcionProyectoDTO } from '../Models/inscripcionproyecto-dto.model';
+import { Inscripcion } from '../Models/inscripcion.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,12 +27,10 @@ createInscripcion(inscripcionProyectoDTO: InscripcionProyectoDTO) : Observable<a
 
   }
 
-
-  /*
-  getInscripciones(): Observable <any>
+  getInscripciones(): Observable <Inscripcion[]>
   {
-    return this.http.get<Convocatoria[]>(this.apiUrl)
-                    .pipe(map((response) => response as Convocatoria[]),
+    return this.http.get<Inscripcion[]>(this.apiUrl)
+                    .pipe(map((response) => response as Inscripcion[]),
                      catchError((e) => {
                         //console.error(e.error.mensaje);
                         //swal.fire("error al consultar proyectos en la bd", e.error.mensaje,"error");
@@ -41,19 +40,30 @@ createInscripcion(inscripcionProyectoDTO: InscripcionProyectoDTO) : Observable<a
   }
 
 
+  updateInscripcion(IdInscripcion: number, inscripcionProyectoDTO: InscripcionProyectoDTO): Observable<any>{
 
-  updateConvocatoria(convocatoria: Convocatoria): Observable<any>{
-
-    return this.http.put<any>(`${this.apiUrl}/${convocatoria.id}`,
-                     convocatoria)
+    return this.http.put<any>(`${this.apiUrl}/${IdInscripcion}`,inscripcionProyectoDTO)
                     .pipe(
                       catchError((e) => {
-                        console.error(e.error.mensaje);
+                        //console.error(e.error.mensaje);
                         return throwError(() => e);
                       })
               );
 }
 
+  getInscripcion(IdInscripcion: number): Observable<InscripcionProyectoDTO>{
+
+    return this.http.get<InscripcionProyectoDTO>(`${this.apiUrl}/${IdInscripcion}`)
+    .pipe(
+        catchError((e) => {
+          //console.error(e.error.mensaje);
+          return throwError(() => e);
+        })
+    );
+  }
+
+
+  /*
   deleteConvocatoria(idConvocatoria: number): Observable<Convocatoria>{
 
     return this.http.delete<Convocatoria>(`${this.apiUrl}/${idConvocatoria}`)

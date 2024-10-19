@@ -124,8 +124,6 @@ public class InscripcionServiceImpl implements InscripcionService {
     }
 
 
-
-
     public void eliminarInscripcion(Long inscripcionId) {
         if (!inscripcionRepository.existsById(inscripcionId)) {
             throw new IllegalArgumentException("Inscripción no encontrada con la id: " + inscripcionId);
@@ -135,10 +133,18 @@ public class InscripcionServiceImpl implements InscripcionService {
 
     public List<Inscripcion> obtenerTodasInscripciones() {
         List<Inscripcion> inscripciones = inscripcionRepository.findAll();
-        if (inscripciones.isEmpty()) {
-            throw new NoSuchElementException("No hay inscripciones disponibles.");
-        }
+        //if (inscripciones.isEmpty()) {
+        //    throw new NoSuchElementException("No hay inscripciones disponibles.");
+        //}
         return inscripciones;
+    }
+
+
+    @Override
+    public Optional<Inscripcion> obtenerInscripcion(Long inscripcionId) {
+    
+        return inscripcionRepository.findById(inscripcionId);
+
     }
 
 
