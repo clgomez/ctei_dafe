@@ -21,66 +21,53 @@
   </div>
 
   <div class="welcome-container">
-    <h1>¡Bienvenido {{ currentUser ? currentUser.username : '' }}!</h1>
+    <h1>Estamos emocionados de tenerte aquí. Explora nuestras
+         funciones y disfruta de la experiencia. {{ currentUser ? currentUser.username : '' }}!</h1>
   </div>
 
-<div class="card bg-dark text-black">
+  <div class="card bg-dark text-black">
     <div class="card-header"><p-tag severity="primary" value="{{ titulo }}"></p-tag></div>
     <div class="card-body">
       <form>
-        <div class="form-group row">
-          <label for="titulo" class="col-form-label col-sm-2">Titulo</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="proyecto.titulo" name="titulo">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="titulo">Titulo</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.titulo" name="titulo" placeholder="Escribe el título del proyecto">
+          </div>
+          <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.descripcion" name="descripcion" placeholder="Describe brevemente el proyecto">
+          </div>
+          <div class="form-group">
+            <label for="poblacionObjetivo">Población Objetivo</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.poblacionObjetivo" name="poblacionObjetivo" placeholder="¿Quién se beneficiará del proyecto?">
+          </div>
+          <div class="form-group">
+            <label for="justificacion">Justificación</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.justificacion" name="justificacion" placeholder="¿Por qué es importante este proyecto?">
+          </div>
+          <div class="form-group">
+            <label for="presupuesto">Presupuesto</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.presupuesto" name="presupuesto" placeholder="Indica el presupuesto estimado">
+          </div>
+          <div class="form-group">
+            <label for="resultadosEsperados">Resultados Esperados</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.resultadosEsperados" name="resultadosEsperados" placeholder="¿Qué esperas lograr?">
+          </div>
+          <div class="form-group">
+            <label for="observaciones">Observaciones</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.observaciones" name="observaciones" placeholder="Notas adicionales">
+          </div>
+          <div class="form-group">
+            <label for="estado">Estado</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.estado" name="estado" placeholder="Estado actual del proyecto">
           </div>
         </div>
-        <div class="form-group row">
-          <label for="descripcion" class="col-form-label col-sm-2">Descripción</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="proyecto.descripcion" name="descripcion">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="poblacionObjetivo" class="col-form-label col-sm-2">Población Objetivo</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="proyecto.poblacionObjetivo" name="poblacionObjetivo">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="justificacion" class="col-form-label col-sm-2">Justificación</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="proyecto.justificacion" name="justificacion">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="presupuesto" class="col-form-label col-sm-2">Presupuesto</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="proyecto.presupuesto" name="presupuesto">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="resultadosEsperados" class="col-form-label col-sm-2">Resultados Esperados</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="proyecto.resultadosEsperados" name="resultadosEsperados">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="observaciones" class="col-form-label col-sm-2">Observaciones</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="proyecto.observaciones" name="observaciones">
-          </div>
-        </div>
-        <div class="form-group row">
-          <label for="estado" class="col-form-label col-sm-2">Estado</label>
-          <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="proyecto.estado" name="estado">
-          </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-sm-6">
-              <button class="btn btn-primary" type="button" (click)='mostrarVistaPrevia()'>Vista Previa</button>
-            </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" type="button" (click)='mostrarVistaPrevia()'>Vista Previa</button>
         </div>
       </form>
     </div>
   </div>
+
+
