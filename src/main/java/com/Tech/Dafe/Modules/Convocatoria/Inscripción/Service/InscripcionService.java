@@ -3,7 +3,7 @@ package com.Tech.Dafe.Modules.Convocatoria.Inscripción.Service;
 import com.Tech.Dafe.Modules.Convocatoria.Inscripción.DTO.InscripcionProyectoDTO;
 import com.Tech.Dafe.Modules.Convocatoria.Inscripción.Models.Inscripcion;
 
-import java.util.List;
+import java.util.*;
 
 public interface InscripcionService {
 
@@ -14,4 +14,8 @@ public interface InscripcionService {
     void eliminarInscripcion(Long inscripcionId);
 
     List<Inscripcion> obtenerTodasInscripciones();
+
+    Optional<Inscripcion> obtenerInscripcion(Long inscripcionId);
+
+
 }

@@ -8,6 +8,7 @@ import { AuthGuard } from 'src/app/Guards/auth.guard';
         { path: 'convocatoriasadministrador', loadChildren: () => import('./convocatoriasadministrador/convocatoriasadministrador.module').then(m => m.ConvocatoriasAdministradorModule), canActivate: [AuthGuard] },
         { path: 'proyectosadministrador', loadChildren: () => import('./proyectosadministrador/proyectosadministrador.module').then(m => m.ProyectosAdministradorModule), canActivate: [AuthGuard] },
         { path: 'asignacionderolesadministrador', loadChildren: () => import('./asignacionderolesadministrador/asignacionderolesadministrador.module').then(m => m.AsignacionDeRolesAdministradorModule), canActivate: [AuthGuard] },
+        { path: 'inscripcionesadministrador', loadChildren: () => import('./inscripcionesadministrador/inscripcionesadministrador.module').then(m => m.InscripcionesAdministradorModule), canActivate: [AuthGuard] },
         { path: '**', redirectTo: '/login' }
     ])],
     exports: [RouterModule]

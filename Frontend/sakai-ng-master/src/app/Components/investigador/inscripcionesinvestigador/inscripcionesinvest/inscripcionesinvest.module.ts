@@ -5,13 +5,12 @@ import { InscripcionesInvestComponent } from './inscripcionesinvest.component';
 import { FormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
     imports: [
         CommonModule,
         InscripcionesInvestRoutingModule,
-        FormsModule, TableModule, ButtonModule, TooltipModule
+        FormsModule, TableModule, ButtonModule
     ],
     declarations: [InscripcionesInvestComponent]
 })

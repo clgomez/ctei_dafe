@@ -24,32 +24,39 @@
     <h1>¡Bienvenido {{ currentUser ? currentUser.username : '' }}!</h1>
   </div>
 
-  <div *ngIf="inscripciones?.length==0" class="alert alert-info">
+  <div *ngIf="convocatorias?.length==0" class="alert alert-info">
     No hay registros en la base de datos
 </div>
 
-<p-table [value]="inscripciones" [tableStyle]="{'min-width': '50rem' } ">
+<p-table [value]="convocatorias" [tableStyle]="{'min-width': '50rem' } ">
     <ng-template pTemplate="header" let-columns>
         <tr>
             <th>Id </th>
-            <th>Fecha de Inscripción</th>
-            <th>Fecha de Actualización</th>
+            <th>Descripción</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Finalización</th>
             <th>Estado</th>
         </tr>
     </ng-template>
-    <ng-template  pTemplate="body" let-inscripcion let-columns="columns" >
+    <ng-template  pTemplate="body" let-convocatoria let-columns="columns" >
         <tr >
             <td>
-                {{inscripcion.id}}
+                {{convocatoria.id}}
             </td>
             <td>
-                {{inscripcion.fechaInscripcion}}
+                {{convocatoria.descripcion}}
             </td>
             <td>
-                {{inscripcion.fechaActualizacion}}
+                {{convocatoria.fechaInicio}}
             </td>
             <td>
-                {{inscripcion.estado}}
+                {{convocatoria.fechaFin}}
+            </td>
+            <td>
+                {{convocatoria.estado}}
+            </td>
+            <td>
+                <button pButton pRipple type="button" name="inscribirse a convocatoria" (click)='inscribirProyecto(convocatoria)' icon="pi pi-pencil" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Inscribirse a convocatoria"></button>
             </td>
         </tr>
     </ng-template>
