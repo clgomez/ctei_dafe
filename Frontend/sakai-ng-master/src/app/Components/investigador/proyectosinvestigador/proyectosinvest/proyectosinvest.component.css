@@ -1,22 +1,22 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f9; /* Fondo suave para mayor contraste */
+    background-color: #f4f4f9; 
 }
 
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #5a5a5a; /* Color más oscuro para la barra de navegación */
+    background-color: #1827d0;
     padding: 15px 30px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Sombra suave para la barra de navegación */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .logo h1 {
     color: white;
     margin: 0;
-    font-size: 2.5em; /* Aumentar el tamaño del logo */
+    font-size: 2.5em;
 }
 
 .nav-links {
@@ -32,51 +32,156 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    color: #ffffff; /* Blanco para el texto de los enlaces */
+    color: #ffffff;
     font-weight: bold;
-    transition: color 0.3s, transform 0.3s; /* Añadir transición para el hover */
+    transition: color 0.3s, transform 0.3s;
 }
 
 .nav-links a:hover {
-    color: #ffcc00; /* Amarillo brillante al pasar el mouse */
-    transform: scale(1.1); /* Efecto de escalado al pasar el mouse */
+    color: #e7ff0a;
+    transform: scale(1.1);
 }
 
 .logout-button {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
-    background-color: #dc3545; /* Color de fondo del botón de cerrar sesión */
+    background-color: #dc3545;
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s; /* Transiciones suaves */
+    transition: background-color 0.3s, transform 0.3s;
     font-size: 1em;
 }
 
 .logout-button:hover {
-    background-color: #c82333; /* Color más oscuro al pasar el mouse */
-    transform: scale(1.05); /* Efecto de escalado al pasar el mouse */
+    background-color: #c82333;
+    transform: scale(1.05);
 }
 
 .welcome-container {
-    max-width: 800px;
-    margin: 40px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #ffffff; /* Fondo blanco para mayor claridad */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Sombra más pronunciada */
+    max-width: 900px;
+    margin: 5px auto;
+    padding: 2px;
+    border: 1px solid #1827d0;
+    border-radius: 2px;
+    background-color: #ffeb3bcb;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-}
+    font-size: 1.5em;
+  }
 
-.welcome-container h1 {
-    font-size: 2.5em;
-    color: #333333; /* Color más oscuro para el texto */
+  .welcome-container h1 {
+    font-size: 0.9em;
+    color: #000000;
     margin-bottom: 20px;
-}
+  }
 
 .welcome-container p {
-    font-size: 1.2em;
+    font-size: 0.9em;
     margin-bottom: 20px;
-    color: #555555; /* Color gris para el texto de párrafos */
+    color: #000000;
+}
+
+
+.nav-tabs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+button[pButton] {
+    background-color: #4caf50;
+    color: white;
+    font-size: 1.1em;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 0px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+button[pButton]:hover {
+    background-color: #45a049;
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+button[pButton]:active {
+    transform: scale(1.05);
+}
+
+button[pButton] .pi {
+    margin-right: 10px;
+}
+p-table {
+    width: 90%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+p-table th {
+    background-color: #1827d0;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #1827d0;
+}
+
+p-table td {
+    padding: 15px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+p-table tr:nth-child(even) {
+    background-color: #f4f4f9;
+}
+
+p-table tr:hover {
+    background-color: #e1e1ef;
+}
+
+
+p-table td button {
+    margin-right: 5px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+p-table td button:hover {
+    transform: scale(1.05);
+}
+
+.alert {
+    background-color: #ffeb3b;
+    color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 20px;
+}
+.crear-proyecto-button {
+    display: inline-block;
+    margin: 10px 0;
+    padding: 5px 10px;
+    background-color: #1827d0;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.crear-proyecto-button:hover {
+    background-color: #3348e7;
+    transform: scale(1.05);
 }

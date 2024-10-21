@@ -9,7 +9,7 @@
 
   <div class="navbar">
     <div class="logo">
-    
+
     </div>
 
     <ul class="nav-links">
@@ -17,8 +17,9 @@
         <li><a routerLink="/welcome">Perfil</a></li>
         <li><a routerLink="/welcome">Configuración</a></li>
         <li><a routerLink="/welcome">Ayuda</a></li>
-        <h1>¡Bienvenido {{ currentUser ? currentUser.username : '' }}!</h1>
+
     </ul>
+    
 
     <button *ngIf="this.authService.isLoggedIn()" (click)="logout()" class="logout-button">Cerrar sesión</button>
   </div>
