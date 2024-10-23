@@ -104,8 +104,8 @@ public class AsignacionrolesServiceImpl implements AsignacionDeRolesService {
         AsignacionDeRolesDTO dto = new AsignacionDeRolesDTO();
         dto.setId(asignacion.getId());
         dto.setEstado(asignacion.getEstado());
-        dto.setFecha_asignacion(asignacion.getFecha_asignacion());
-        dto.setFecha_actualizacion(asignacion.getFecha_actualizacion());
+        dto.setFechaAsignacion(asignacion.getFecha_asignacion());
+        dto.setFechaActualizacion(asignacion.getFecha_actualizacion());
         dto.setProyectoId(asignacion.getProyecto().getId());
         dto.setUsuarioTutorId(asignacion.getUsuarioTutor().getId());
         dto.setUsuarioEvaluadorId(asignacion.getUsuarioEvaluador().getId());

@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping("/usuario")
 public class UsuarioController {
 
@@ -162,6 +164,32 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.save(usuarioDb));
     }
 
+    @GetMapping("/rol/{nombreRol}")
+    public ResponseEntity<?> obtenerUsuarioPorRol(@PathVariable String nombreRol) {
+        try {
+            // Convertir el String nombreRol al Enum RolNombre
+            RolNombre rolNombreEnum = RolNombre.valueOf(nombreRol);
+            
+            // Obtener la lista de usuarios con el rol especificado
+            List<Usuario> usuarios = usuarioService.findByRoles_RolNombre(rolNombreEnum);
+            
+            // Verificar si la lista está vacía
+            if (usuarios.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("No se encontraron usuarios con el rol: " + nombreRol);
+            }
+            
+            return ResponseEntity.ok().body(usuarios);
+        } catch (IllegalArgumentException e) {
+            // Captura si el valor de nombreRol no es válido para el Enum
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body("El rol proporcionado no es válido: " + nombreRol);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error al obtener los usuarios: " + e.getMessage());
+        }
+    }
+    
 
     @ExceptionHandler
     public ResponseEntity<?> handleException(Exception e) {

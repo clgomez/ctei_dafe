@@ -4,6 +4,7 @@ import com.Tech.Dafe.Modules.Enums.Roles.RolNombre;
 import com.Tech.Dafe.Modules.Autenticacion.Modelos.Rol;
 import com.Tech.Dafe.Modules.Autenticacion.Modelos.Usuario;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UsuarioService {
@@ -13,5 +14,6 @@ public interface UsuarioService {
     public Usuario save(Usuario usuario);
     public void deleteById(Long id);
     Optional<Rol> findRolByNombre(RolNombre rolNombre);
+    List<Usuario> findByRoles_RolNombre(RolNombre rolNombre);
     
 }

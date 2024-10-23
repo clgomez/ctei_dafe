@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+  <div class="navbar">
+    <div class="logo">
+        <h1>Dafe</h1>
+    </div>
+    <ul class="nav-links">
+        <li><a routerLink="/welcome">Administrador</a></li>
+        <li><a routerLink="/welcome">Perfil</a></li>
+        <li><a routerLink="/welcome">Configuración</a></li>
+        <li><a routerLink="/welcome">Ayuda</a></li>
+    </ul>
+    <button (click)="logout()" class="logout-button">Cerrar sesión</button>
+  </div>
+
+  <div class="welcome-container">
+    <h1>¡Bienvenido {{ currentUser ? currentUser.username : '' }}!</h1>
+  </div>
+
+<div class="card bg-dark text-black">
+    <div class="card-header"><p-tag severity="primary" value="{{ titulo }}"></p-tag></div>
+    <div class="card-body">
+      <form>
+        <div class="form-group row">
+          <label for="usuarioTutorId" class="col-form-label col-sm-2">Tutores</label>
+          <div class="col-sm-6">
+            <select id="usuarioTutor" [(ngModel)]="asignacionDeRoles.usuarioTutorId" name="usuarioTutorId">
+                <option [ngValue]="null" disabled>Seleccione Tutor</option>
+                <option *ngFor="let usuarioTutor of usuariosTutores" [value]="usuarioTutor.id">
+                    {{ usuarioTutor.id }} - {{ usuarioTutor.nombre }} {{ usuarioTutor.apellidos }}
+                </option>
+              </select>
+          </div>
+        </div>
+        <div class="form-group row">
+            <label for="usuarioEvaluador" class="col-form-label col-sm-2">Evaluadores</label>
+            <div class="col-sm-6">
+                <select id="usuarioEvaluadorId" [(ngModel)]="asignacionDeRoles.usuarioEvaluadorId" name="usuarioEvaluadorId">
+                    <option [ngValue]="null"  disabled>Seleccione Evaluador</option>
+                    <option *ngFor="let usuarioEvaluador of usuariosEvaluadores" [value]="usuarioEvaluador.id">
+                        {{ usuarioEvaluador.id }} - {{ usuarioEvaluador.nombre }} {{ usuarioEvaluador.apellidos }}
+                    </option>
+                  </select>
+            </div>
+        </div>
+        <div class="form-group row">
+          <label for="estado" class="col-form-label col-sm-2">Estado</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="asignacionDeRoles.estado" name="estado">
+          </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+                <button class="btn btn-primary" role="button" (click)='crearAsignacionDeRoles()'>Asignar Roles</button>
+            </div>
+        </div>
+      </form>
+    </div>
+  </div>
+

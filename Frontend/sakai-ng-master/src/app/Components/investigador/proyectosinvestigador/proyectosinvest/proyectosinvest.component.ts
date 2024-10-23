@@ -51,7 +51,7 @@ export class ProyectosInvestComponent implements OnInit {
 
     this.proyectoService.deleteProyecto(proyecto.id).subscribe(
       response => {
-        this.proyectos = this.proyectos.filter(conv => conv !== proyecto)
+        this.proyectos = this.proyectos.filter(proy => proy !== proyecto)
         /*swal.fire(
           'Proyecto Eliminado!',
           `Proyecto ${proyecto.titulo} eliminado con éxito.`,

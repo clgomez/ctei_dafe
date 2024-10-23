@@ -90,8 +90,8 @@ export class AppMenuComponent implements OnInit {
                 label: 'Herramientas de Usuario Administrador',
                 items: [
                     { label: 'Convocatorias', icon: 'pi pi-fw pi-megaphone', routerLink: ['/administrador/convocatoriasadministrador/convocatoriasadmin'] },
-                    { label: 'Proyectos', icon: 'pi pi-fw pi-lightbulb', routerLink: ['/administrador/proyectosadministrador/proyectosadmin'] },
                     { label: 'Inscripciones', icon: 'pi pi-fw pi-book', routerLink: ['/administrador/inscripcionesadministrador/inscripcionesadmin'] },
+                    { label: 'Proyectos', icon: 'pi pi-fw pi-lightbulb', routerLink: ['/administrador/proyectosadministrador/proyectosadmin'] },
                     { label: 'Asignación de Roles', icon: 'pi pi-fw pi-user-plus', routerLink: ['/administrador/asignacionderolesadministrador/asignacionderolesadmin'] }
                 ]
             });

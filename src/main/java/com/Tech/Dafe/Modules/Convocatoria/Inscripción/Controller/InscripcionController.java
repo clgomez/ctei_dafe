@@ -1,6 +1,5 @@
 package com.Tech.Dafe.Modules.Convocatoria.Inscripción.Controller;
 
-import com.Tech.Dafe.Modules.Convocatoria.Convocatorias.Models.Convocatoria;
 import com.Tech.Dafe.Modules.Convocatoria.Inscripción.DTO.InscripcionProyectoDTO;
 import com.Tech.Dafe.Modules.Convocatoria.Inscripción.Models.Inscripcion;
 import com.Tech.Dafe.Modules.Convocatoria.Inscripción.Service.InscripcionService;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;

@@ -14,8 +14,8 @@ public class AsignacionDeRolesDTO {
 
     private Long id;
     private String estado;
-    private String fecha_asignacion;
-    private String fecha_actualizacion;
+    private String fechaAsignacion;
+    private String fechaActualizacion;
     private Long proyectoId;
     private Long usuarioTutorId;
     private Long usuarioEvaluadorId;

@@ -56,6 +56,9 @@ public class MainSecurity {
                                 .requestMatchers("/proyecto/**").permitAll()
                                 .requestMatchers("/notificaciones/**").permitAll()
                                 .requestMatchers("/inscripciones/**").permitAll()
+                                .requestMatchers("/usuario/**").permitAll()
+                                .requestMatchers("/api/asignacion-roles/**").permitAll()
+                                
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
