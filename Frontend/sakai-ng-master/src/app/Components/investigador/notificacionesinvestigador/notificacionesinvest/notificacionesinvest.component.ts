@@ -13,7 +13,7 @@ import { User } from '../../../../Models/user.model';
 export class NotificacionesInvestComponent implements OnInit {
   currentUser: User | null = null;
 
-  public usuario: User | null = null;
+  public usuario: User | null;
 
   notificaciones: Notificacion[];
 
@@ -24,24 +24,31 @@ export class NotificacionesInvestComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.authService.currentUser.subscribe(user => this.currentUser = user);
     console.log("username", this.currentUser.username);
-    //this.authService.getUserbyEmail(this.currentUser.username).subscribe(user => this.usuario = user );
+    this.authService.getUserbyEmail(this.currentUser.username).subscribe
+                    (user => {this.usuario = user, this.cargarNotificacionesPorUsuario()});
 
-    //console.log("id usuario", this.usuario.id);
 
-    this.notificacionService.getNotificacionesPorUsuario(2).subscribe({
+  }
+
+  public cargarNotificacionesPorUsuario():void
+  {
+    console.log("id usuario", this.usuario.id);
+
+    this.notificacionService.getNotificacionesPorUsuario(this.usuario.id).subscribe({
         next: (respose) =>
-        { this.notificaciones = respose;
+        { this.notificaciones =  Array.isArray(respose) ? respose : [];
           if(this.notificaciones.length == 0)
              //swal.fire('lista vacia', `${respose.mensaje}:`, 'success')
             console.log('lista vacia');
 
         },
-        //error: err => {
+        error: err => {
           //console.log(err.error.mensaje)
           //swal.fire("error al consultar productos en la bd", err.error.mensaje,"error");
-        //}
+         }
         });
 
   }

@@ -14,6 +14,8 @@ import { ProyectoService } from 'src/app/Services/proyecto.service';
 export class ProyectosInvestComponent implements OnInit {
   currentUser: User | null = null;
 
+  public usuario: User | null;
+
   public visibleDetalleProyecto: boolean = false;
 
   proyectos: Proyecto[];
@@ -29,21 +31,31 @@ export class ProyectosInvestComponent implements OnInit {
   ngOnInit() {
     this.authService.currentUser.subscribe(user => this.currentUser = user);
 
-    this.proyectoService.getProyectos().subscribe({
+
+    console.log("username", this.currentUser.username);
+    this.authService.getUserbyEmail(this.currentUser.username).subscribe
+                    (user => {this.usuario = user, this.cargarProyectosPorUsuario()});
+
+
+
+  }
+
+  cargarProyectosPorUsuario():void
+  {
+    this.proyectoService.getProyectosPorUsuario(this.usuario.id).subscribe({
         next: (respose) =>
-        { this.proyectos = respose;
+        { this.proyectos =  Array.isArray(respose) ? respose : [];
             console.log(respose.length);
           if(this.proyectos.length == 0)
              //swal.fire('lista vacia', `${respose.mensaje}:`, 'success')
             console.log('lista vacia');
 
         },
-        //error: err => {
+        error: err => {
           //console.log(err.error.mensaje)
           //swal.fire("error al consultar productos en la bd", err.error.mensaje,"error");
-        //}
+        }
         });
-
 
   }
 

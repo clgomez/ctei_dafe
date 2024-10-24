@@ -6,6 +6,7 @@ import com.Tech.Dafe.Modules.Proyecto.Proyectos.Repositorio.ProyectoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,5 +37,10 @@ public class ProyectoServiceImpl implements ProyectoService {
     public void deleteById(Long id) {
         asignacionRolesRepository.deleteById(id);
         proyectoRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Proyecto> obtenerProyectosPorUsuario(Long usuarioId) {
+        return proyectoRepository.findByUsuarioId(usuarioId);
     }
 }

@@ -32,7 +32,6 @@ export class FormVistaPreviaProyectosInvestComponent implements OnInit, OnDestro
     this.authService.currentUser.subscribe(user => this.currentUser = user );
     this.authService.getUserbyEmail(this.currentUser.username).subscribe(user => this.usuario = user );
 
-
     const datos = localStorage.getItem('proyecto');
     this.proyecto = datos ? JSON.parse(datos) : null;
 

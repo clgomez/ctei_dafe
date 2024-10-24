@@ -3,8 +3,10 @@ package com.Tech.Dafe.Modules.Proyecto.Proyectos.Controllers;
 import com.Tech.Dafe.Modules.Proyecto.Proyectos.Models.Proyecto;
 
 import com.Tech.Dafe.Modules.Autenticacion.Modelos.Usuario;
+import com.Tech.Dafe.Modules.Notificaciones.Models.Notificacion;
 import com.Tech.Dafe.Modules.Proyecto.Proyectos.DTO.ProyectoDTO;
 import com.Tech.Dafe.Modules.Proyecto.Proyectos.Services.ProyectoService;
+import com.Tech.Dafe.Modules.Usuario.Repositorio.UsuarioRepository;
 import com.Tech.Dafe.Modules.Usuario.Services.UsuarioService;
 import com.Tech.Dafe.Response.Mensaje;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -26,6 +29,9 @@ public class ProyectoController {
 
     @Autowired
     private UsuarioService usuarioService;
+
+     @Autowired
+    private UsuarioRepository usuarioRepository;
 
 
     @GetMapping
@@ -126,6 +132,24 @@ public class ProyectoController {
 
         return ResponseEntity.ok(proyectoService.save(proyectoDb));
     }
+
+
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<?> obtenerProyectosPorUsuario(@PathVariable Long usuarioId) {
+        if (!usuarioRepository.existsById(usuarioId)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new Mensaje("No se encontró el usuario con ID: " + usuarioId));
+        }
+
+        List<Proyecto> proyectos = proyectoService.obtenerProyectosPorUsuario(usuarioId);
+
+        if (proyectos.isEmpty()) {
+            return ResponseEntity.ok(new Mensaje("No hay proyectos para el usuario con ID: " + usuarioId));
+        }
+
+        return ResponseEntity.ok(proyectos);
+    }
+
 
 
     @ExceptionHandler

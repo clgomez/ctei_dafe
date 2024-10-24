@@ -147,4 +147,12 @@ public class InscripcionServiceImpl implements InscripcionService {
     }
 
 
+    @Override
+    public List<Inscripcion> obtenerInscripcionesPorUsuario(Long usuarioId) {
+
+        return inscripcionRepository.findByUsuarioId(usuarioId);
+
+    }
+
+
 }

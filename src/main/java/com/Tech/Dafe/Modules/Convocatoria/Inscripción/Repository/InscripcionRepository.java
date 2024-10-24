@@ -6,11 +6,12 @@ import com.Tech.Dafe.Modules.Proyecto.Proyectos.Models.Proyecto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.*;
 
 @Repository
 public interface InscripcionRepository extends JpaRepository<Inscripcion, Long> {
     Optional<Inscripcion> findByConvocatoriaAndProyecto(Convocatoria convocatoria, Proyecto proyecto);
     Optional<Inscripcion> findByProyectoAndEstado(Proyecto proyecto, String estado);
+    List<Inscripcion> findByUsuarioId(Long usuarioId);
 
 }

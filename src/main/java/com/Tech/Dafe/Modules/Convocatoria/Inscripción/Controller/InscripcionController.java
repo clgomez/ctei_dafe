@@ -3,6 +3,8 @@ package com.Tech.Dafe.Modules.Convocatoria.Inscripción.Controller;
 import com.Tech.Dafe.Modules.Convocatoria.Inscripción.DTO.InscripcionProyectoDTO;
 import com.Tech.Dafe.Modules.Convocatoria.Inscripción.Models.Inscripcion;
 import com.Tech.Dafe.Modules.Convocatoria.Inscripción.Service.InscripcionService;
+import com.Tech.Dafe.Modules.Proyecto.Proyectos.Models.Proyecto;
+import com.Tech.Dafe.Modules.Usuario.Repositorio.UsuarioRepository;
 import com.Tech.Dafe.Response.Mensaje;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,9 @@ public class InscripcionController {
 
     @Autowired
     private InscripcionService inscripcionService;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
 
     @PostMapping
@@ -96,6 +101,22 @@ public class InscripcionController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error al obtener el elemento: " + e.getMessage());
         }
+    }
+
+    @GetMapping("/usuario/{usuarioId}")
+    public ResponseEntity<?> obtenerInscripcionesPorUsuario(@PathVariable Long usuarioId) {
+        if (!usuarioRepository.existsById(usuarioId)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new Mensaje("No se encontró el usuario con ID: " + usuarioId));
+        }
+
+        List<Inscripcion> inscripciones = inscripcionService.obtenerInscripcionesPorUsuario(usuarioId);
+
+        if (inscripciones.isEmpty()) {
+            return ResponseEntity.ok(new Mensaje("No hay inscripciones para el usuario con ID: " + usuarioId));
+        }
+
+        return ResponseEntity.ok(inscripciones);
     }
 
 

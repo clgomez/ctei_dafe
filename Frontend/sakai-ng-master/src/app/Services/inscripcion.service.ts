@@ -39,6 +39,17 @@ createInscripcion(inscripcionProyectoDTO: InscripcionProyectoDTO) : Observable<a
            );
   }
 
+  getInscripcionesPorUsuario(idUsuario: number): Observable <Inscripcion[]>
+  {
+    return this.http.get<Inscripcion[]>(`${this.apiUrl}/usuario/${idUsuario}`)
+                    .pipe(map((response) => response as Inscripcion[]),
+                     catchError((e) => {
+                        //console.error(e.error.mensaje);
+                        //swal.fire("error al consultar proyectos en la bd", e.error.mensaje,"error");
+                        return throwError(() => e);
+                    })
+           );
+  }
 
   updateInscripcion(IdInscripcion: number, inscripcionProyectoDTO: InscripcionProyectoDTO): Observable<any>{
 

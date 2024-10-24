@@ -13,9 +13,9 @@ export class NotificacionService {
 
   constructor( private http: HttpClient) {}
 
-  getNotificacionesPorUsuario(idNotificacion: number): Observable <Notificacion[]>
+  getNotificacionesPorUsuario(idUsuario: number): Observable <Notificacion[]>
   {
-    return this.http.get<Notificacion[]>(`${this.apiUrl}/usuario/${idNotificacion}`)
+    return this.http.get<Notificacion[]>(`${this.apiUrl}/usuario/${idUsuario}`)
                     .pipe(map((response) => response as Notificacion[]),
                      catchError((e) => {
                         //console.error(e.error.mensaje);

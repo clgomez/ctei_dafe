@@ -13,6 +13,8 @@ import { User } from '../../../../Models/user.model';
 export class InscripcionesInvestComponent implements OnInit {
   currentUser: User | null = null;
 
+  public usuario: User | null;
+
   inscripciones: Inscripcion[];
 
   constructor(
@@ -24,35 +26,33 @@ export class InscripcionesInvestComponent implements OnInit {
   ngOnInit() {
     this.authService.currentUser.subscribe(user => this.currentUser = user);
 
-    this.inscripcionService.getInscripciones().subscribe({
+    console.log("username", this.currentUser.username);
+    this.authService.getUserbyEmail(this.currentUser.username).subscribe
+                    (user => {this.usuario = user, this.cargarInscripcionesPorUsuario()});
+
+
+  }
+
+  public cargarInscripcionesPorUsuario():void
+  {
+    console.log("id usuario", this.usuario.id);
+
+    this.inscripcionService.getInscripcionesPorUsuario(this.usuario.id).subscribe({
         next: (respose) =>
-        { //console.log(respose);
-            if (Array.isArray(respose)) {
-                this.inscripciones = respose;
-                if(this.inscripciones.length == 0)
-                    //swal.fire('lista vacia', `${respose.mensaje}:`, 'success')
-                    console.log('lista vacia');
-            }else {
-                console.error("no es arreglo: ",respose);
-              }
+        { this.inscripciones =  Array.isArray(respose) ? respose : [];
+          if(this.inscripciones.length == 0)
+             //swal.fire('lista vacia', `${respose.mensaje}:`, 'success')
+            console.log('lista vacia');
 
         },
         error: err => {
           //console.log(err.error.mensaje)
           //swal.fire("error al consultar productos en la bd", err.error.mensaje,"error");
-        }
+         }
         });
 
   }
 
-
-  isAdmin(): boolean {
-    return this.authService.hasRole('ROL_ADMIN');
-  }
-
-  isUser(): boolean {
-    return this.authService.hasRole('ROL_USER');
-  }
 
   logout() {
     this.authService.logout();

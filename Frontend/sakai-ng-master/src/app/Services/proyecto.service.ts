@@ -38,6 +38,19 @@ createProyecto(proyecto: Proyecto) : Observable<Proyecto> {
            );
   }
 
+  getProyectosPorUsuario(idUsuario: number): Observable <Proyecto[]>
+  {
+    return this.http.get<Proyecto[]>(`${this.apiUrl}/usuario/${idUsuario}`)
+                    .pipe(map((response) => response as Proyecto[]),
+                     catchError((e) => {
+                        //console.error(e.error.mensaje);
+                        //swal.fire("error al consultar proyectos en la bd", e.error.mensaje,"error");
+                        return throwError(() => e);
+                    })
+           );
+  }
+
+
   getProyecto(idProyecto: number): Observable<Proyecto>{
 
     return this.http.get<Proyecto>(`${this.apiUrl}/${idProyecto}`)
