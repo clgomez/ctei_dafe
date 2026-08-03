@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+
+</head>
+<body>
+
+  <!-- 
+  <div class="navbar">
+    <div class="logo">
+        <h1>DAFE</h1>
+    </div>
+    <ul class="nav-links">
+        <li><a routerLink="/welcome">Investigador</a></li>
+        <li><a routerLink="/welcome">Perfil</a></li>
+        <li><a routerLink="/welcome">Configuración</a></li>
+        <li><a routerLink="/welcome">Ayuda</a></li>
+    </ul>
+    <button (click)="logout()" class="logout-button">Cerrar sesión</button>
+  </div>
+
+  <div class="welcome-container">
+    <h1>¡Bienvenido {{ currentUser ? currentUser.username : '' }}!</h1>
+  </div>
+-->
+
+<form #f="ngForm" novalidate>
+
+  <div *ngIf="actividadesYCML?.length==0" class="alert alert-info">
+    No hay registros en la base de datos
+  </div>
+
+  <!-- BOTONES -->
+  <div class="form-group row">
+    <div class="col-12 d-flex justify-content-end">
+      <button
+        class="btn btn-primary-crear me-2"
+        type="button"
+        (click)="crearActividades()"
+        [disabled]="!f.valid || hayFechasInvalidas()"
+        *ngIf="!actividadesCargadas?.length else elseBlock"
+        >
+        Crear Actividades
+      </button>
+
+      <ng-template #elseBlock>
+        <button 
+          class="btn btn-primary-editar" 
+          type="button" 
+          (click)='actualizarActividades()'
+          [disabled]="!f.valid || hayFechasInvalidas()">
+          Editar
+       </button>
+      </ng-template>
+
+      <button
+        class="btn btn-primary-cancelar"
+        type="button"
+        (click)="cancelarActividades()">
+        Cancelar
+      </button>
+    </div>
+  </div>
+
+  <!-- TARJETAS -->
+  <div class="row g-4" *ngIf="actividadesYCML?.length>0">
+    <div class="col-md-4" *ngFor="let actividadCMarcoLogico of actividadesYCML; let i = index">
+
+      <div class="card h-100 p-3 card-remarcada">
+        <h5 class="card-title">
+            Actividad {{ i + 1 }}
+            <small *ngIf="actividadCMarcoLogico.id">
+                (ID: {{ actividadCMarcoLogico.id }})
+            </small>
+        </h5>
+
+        <!-- Nombre -->
+        <div class="form-group row">
+          <label class="col-form-label col-sm-10">
+            Nombre de la Actividad
+          </label>
+
+          <div class="col-sm-20">
+            <input
+              type="text"
+              class="form-control input-actividad"
+              [(ngModel)]="actividadCMarcoLogico.nombreActividad"
+              name="nombreActividad{{i}}"
+              required
+              minlength="10"
+              #nombre="ngModel">
+
+            <div *ngIf="nombre.invalid && nombre.touched" class="text-danger">
+              <small *ngIf="nombre.errors?.required">
+                El nombre de la actividad es obligatorio.
+              </small>
+              <small *ngIf="nombre.errors?.minlength">
+                Debe tener al menos 10 caracteres.
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Descripción -->
+        <div class="form-group row">
+          <label class="col-form-label col-sm-10">
+            Descripción de la Actividad
+          </label>
+
+          <div class="col-sm-20">
+            <input
+              type="text"
+              class="form-control input-actividad"
+              [(ngModel)]="actividadCMarcoLogico.descripcionActividad"
+              name="descripcionActividad{{i}}"
+              required
+              minlength="20"
+              #descripcion="ngModel">
+
+            <div *ngIf="descripcion.invalid && descripcion.touched" class="text-danger">
+              <small *ngIf="descripcion.errors?.required">
+                La descripción es obligatoria.
+              </small>
+              <small *ngIf="descripcion.errors?.minlength">
+                Debe tener al menos 20 caracteres.
+              </small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Campos deshabilitados -->
+        <div class="form-group row">
+          <label class="col-sm-6">Causa</label>
+          <div class="col-sm-20">
+            <input type="text" class="form-control"
+              [(ngModel)]="actividadCMarcoLogico.causaDescripcion"
+              name="causa{{i}}" disabled>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-6">Efecto</label>
+          <div class="col-sm-20">
+            <input type="text" class="form-control"
+              [(ngModel)]="actividadCMarcoLogico.efectoDescripcion"
+              name="efecto{{i}}" disabled>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-6">Medio</label>
+          <div class="col-sm-20">
+            <input type="text" class="form-control"
+              [(ngModel)]="actividadCMarcoLogico.medioDescripcion"
+              name="medio{{i}}" disabled>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label class="col-sm-6">Fin</label>
+          <div class="col-sm-20">
+            <input type="text" class="form-control"
+              [(ngModel)]="actividadCMarcoLogico.finDescripcion"
+              name="fin{{i}}" disabled>
+          </div>
+        </div>
+
+        <!-- Fecha de Inicio -->
+       <div class="form-group row">
+            <label for="fechaInicio" class="col-form-label col-sm-6">Fecha de Inicio</label>
+            <div class="col-sm-10">
+                  <p-calendar
+                  [(ngModel)]="actividadCMarcoLogico.fechaInicio"
+                  [showIcon]="true"
+                  [showOnFocus]="false"
+                  inputId="buttondisplay"
+                  [placeholder]="placeholderFechaInicio"
+                  [dateFormat]="'dd/mm/yy'"
+                  name="fechaInicio{{i}}"
+                  required
+                   #fechainicioactividad="ngModel"
+                  (ngModelChange)="onDateChangeFechaInicio(actividadCMarcoLogico)"
+                  [minDate]="actividadCMarcoLogico.minDateInicio"
+                  />
+                  <div *ngIf="fechainicioactividad.invalid && fechainicioactividad.touched" class="text-danger">
+                    <small *ngIf="fechainicioactividad.errors?.['required']">La fecha de inicio de la actividad es obligatoria.</small>
+                  </div>
+                  <div *ngIf="actividadCMarcoLogico.erroresFechas.inicio" class="text-danger">
+                    <small>{{ actividadCMarcoLogico.erroresFechas.inicio }}</small>
+                  </div>
+            </div>
+        </div>
+
+        <!-- Fecha Fin -->
+        <div class="form-group row">
+          <label for="fechaFin" class="col-form-label col-sm-6">Fecha Final</label>
+          <div class="col-sm-10">
+                <p-calendar
+                [(ngModel)]="actividadCMarcoLogico.fechaFin"
+                [showIcon]="true"
+                [showOnFocus]="false"
+                inputId="buttondisplay"
+                [placeholder]="placeholderFechaFin"
+                [dateFormat]="'dd/mm/yy'"
+                name="fechaFin{{i}}"
+                required
+                #fechafinactividad="ngModel"
+                (ngModelChange)="onDateChangeFechaFin(actividadCMarcoLogico)"
+                [minDate]="actividadCMarcoLogico.minDateFin"
+                />
+                <div *ngIf="fechafinactividad.invalid && fechafinactividad.touched" class="text-danger">
+                  <small *ngIf="fechafinactividad.errors?.['required']">La fecha de finalización de la actividad es obligatoria.</small>
+                </div>
+                <div *ngIf="actividadCMarcoLogico.erroresFechas.fin" class="text-danger">
+                  <small>{{ actividadCMarcoLogico.erroresFechas.fin }}</small>
+                </div> 
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+</form>

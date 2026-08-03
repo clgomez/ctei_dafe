@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+</head>
+<body>
+    <!-- 
+    <div class="navbar">
+        <div class="logo">
+            <a href="https://popayan.gov.co/SecretariasyEntidades/secDafe/Paginas/default.aspx#gsc.tab=0" target="_blank" aria-label="Ir al sitio de DAFE">
+                <img src="assets/layout/images/logodafe.png" alt="Logo DAFE" class="logo-img">
+            </a>
+        </div>
+    <ul class="nav-links">
+        <li><a routerLink="/welcome">Investigador</a></li>
+        <li><a routerLink="/welcome">Perfil</a></li>
+        <li><a routerLink="/welcome">Configuración</a></li>
+        <li><a routerLink="/welcome">Ayuda</a></li>
+    </ul>
+    <button (click)="logout()" class="logout-button">Cerrar sesión</button>
+  </div>
+  -->
+
+  <!--
+  <div class="welcome-container">
+    <h1>¡hola! {{ currentUser ? currentUser.username : '' }} Aqui puedes visualizar tus proyectos cargados o crear uno nuevo</h1>
+  </div>
+  -->
+
+ <!--<div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+        <button pButton pRipple type="button" name="crear" [routerLink]="['/investigador/proyectosinvestigador/formproyectosinvest']" icon="pi pi-file" class="p-button-rounded p-button-info p-button-text" pTooltip="Crear proyecto">Nuevo Proyecto</button>
+    </ul>
+  </div>
+  -->
+
+  <div>
+    <h2 style="text-align: center; font-weight: bold;">Gestionar Árbol de Problemas</h2>
+  </div>
+
+  <div *ngIf="proyectos?.length==0" class="alert alert-info">
+    No hay registros en la base de datos
+  </div>
+
+  <div class="card-header">
+    <div class="d-flex gap-2"> 
+        <button 
+            pButton pRipple type="button" 
+            name="crear" 
+            (click)="asociarIdProyectoConArbolDeProblemas()" 
+            icon="pi pi-file" 
+            class="p-button-rounded p-button-info p-button-text" 
+            pTooltip="Crear árbol de problemas"
+            [disabled]="existeArbolDeProblemas">
+            Nuevo Árbol de Problemas
+        </button>
+    </div>    
+  </div>
+<!-- 
+  <p-table
+        #dt2
+        [value]="proyectos"
+        dataKey="id"
+        [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [loading]="loading"
+        [paginator]="true"
+        [globalFilterFields]="['id', 'titulo']"
+        [tableStyle]="{ 'min-width': '75rem' }">
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <p-iconField iconPosition="left" class="ml-auto">
+                    <p-inputIcon pTooltip="Buscar proyecto">
+                        <i class="pi pi-search" ></i>
+                    </p-inputIcon>
+                    <input
+                        pInputText
+                        type="text"
+                        (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Clave de búsqueda"/>
+                </p-iconField>
+            </div>
+            
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:0%">Id</th>
+                <th style="width:0%">Título</th>
+                <th style="width:0%">Fecha de Creación</th>
+                <th style="width:0%">Fecha de Actualización</th>
+                <th style="width:0%">Acciones</th>
+                
+            </tr>
+          </ng-template>
+        <ng-template pTemplate="body" let-proyecto>
+            <tr>
+                <td>
+                    {{proyecto.id}}
+                </td>
+                <td>
+                    {{proyecto.titulo}}
+                </td>
+                <td>
+                    {{proyecto.fechaCreacion}}
+                </td>
+                <td>
+                    {{proyecto.fechaActualizacion}}
+                </td>
+                <td>
+                    <button pButton pRipple type="button" name="editar" [routerLink]="['/investigador/proyectosinvestigador/formproyectosinvest', proyecto.id]" icon="pi pi-file-edit" class="p-button-rounded p-button-text" pTooltip="Editar proyecto"></button>
+                    <button pButton pRipple type="button" name="eliminar" (click)='eliminarProyecto(proyecto)' icon="pi pi-trash" class="p-button-rounded p-button-info p-button-text" pTooltip="Eliminar proyecto"></button>
+                    <button pButton pRipple type="button" name="ver detalle" (click)='mostrarDetalleProyecto(proyecto)' icon="pi pi-eye" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Ver detalle proyecto"></button>
+                    <button pButton pRipple type="button" name="exportar a pdf" (click)='exportarProyecto(proyecto,"PDF")' icon="pi pi-file-pdf" class="p-button-rounded p-button-danger p-button-text" pTooltip="Exportar proyecto a PDF"></button>
+                    <button pButton pRipple type="button" name="exportar a excel" (click)='exportarProyecto(proyecto,"Excel")' icon="pi pi-file-excel" class="p-button-rounded p-button-success p-button-text" pTooltip="Exportar proyecto a EXCEL"></button>
+                    <p-splitButton
+                        [label]="''"
+                        icon="pi pi-download"
+                        (onClick)="exportarProyecto(proyecto, 'PDF')"
+                        [model]="proyecto.itemsExportar"
+                        class="p-button-rounded p-button-text custom-split-button"
+                        appendTo="body"
+                        [id]="'btn-export-' + proyecto.id"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        aria-controls="'menu-export-' + proyecto.id"
+                        aria-label="Menú de exportación"
+                        (onMenuShow)="setAriaExpanded(proyecto.id, true)"
+                        (onMenuHide)="setAriaExpanded(proyecto.id, false)"
+                        (keydown)="onKeyDown($event, proyecto)"
+                        pTooltip="Exportar proyecto">
+                    </p-splitButton>
+                    <button pButton pRipple type="button" name="inscribirse a convocatoria" [routerLink]="['/investigador/inscripcionesinvestigador/inscripcionproyectoinvest', proyecto.id]" icon="pi pi-pencil" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Inscribir proyecto"></button>
+                    <button pButton pRipple type="button" name="formular proyecto" [routerLink]="['/investigador/proyectosinvestigador/formarboldeproblemasinvest', proyecto.id]" icon="pi pi-chart-line" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Formular proyecto"></button>
+                    <button pButton pRipple type="button" name="programar actividades" [routerLink]="['/investigador/proyectosinvestigador/formactividadesinvest', proyecto.id]" icon="pi pi-calendar-clock" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Programar actividades"></button>
+                    <button pButton pRipple type="button" name="cronograma de actividades" [routerLink]="['/investigador/proyectosinvestigador/cronogramainvest', proyecto.id]" icon="pi pi-clock" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Cronograma de actividades"></button>
+               </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="5">No se encontraron proyectos.</td>
+            </tr>
+        </ng-template>
+</p-table>
+-->
+
+<p-table [value]="arbolesDeProblemasCausasEfectos" [tableStyle]="{'min-width': '50rem' } ">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th>Id</th>
+            <th>Descripción del Árbol de Problemas</th>
+            <th>Acciones</th>
+        </tr>
+    </ng-template>
+    <ng-template  pTemplate="body" let-arbolProblemasCE let-columns="columns" >
+        <tr >
+            <td>
+                {{arbolProblemasCE.arbolDeProblemas.id}}
+            </td>
+            <td>
+                {{arbolProblemasCE.arbolDeProblemas.descripcion}}
+            </td>
+            <td>
+                <button pButton pRipple type="button" name="ver detalle" (click)='mostrarDetalleArbolDeProblemas(arbolProblemasCE)' icon="pi pi-eye" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Ver detalle árbol de problemas"></button>
+                <button pButton pRipple type="button" name="editar arboldeproblemas" [routerLink]="['/investigador/proyectosinvestigador/formarboldeproblemasinvest', arbolProblemasCE.arbolDeProblemas.id]" icon="pi pi-file-edit" class="p-button-rounded p-button-text" pTooltip="Editar árbol de problemas"></button>
+                <button pButton pRipple type="button" name="eliminar" (click)='eliminarArbolDeProblemas(arbolProblemasCE)' icon="pi pi-trash" class="p-button-rounded p-button-info p-button-text" pTooltip="Eliminar árbol de problemas"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<!-- BOTÓN GENERAR ÁRBOL DE OBJETIVOS-->  
+<div class="form-group mt-5 d-flex justify-content-between align-items-center">
+    <button class="btn btn-primary"
+            (click)="irAlArbolDeObjetivos()">
+        Ir al Árbol de Objetivos
+    </button>
+</div>
+
+
+  <p-dialog header="Detalles del Árbol de Problemas" [modal]="true" [(visible)]="visibleDetalleArbolDeProblemas" [style]="{ width: '25rem' }">
+      <div *ngIf="arbolDeProblemasCausasEfectosSeleccionado">
+        <!--
+        <div class="flex align-items-center gap-3 mb-3" class="form-group">
+            <label for="proyectoId" class="font-semibold w-10rem">Id del Proyecto</label>
+            <input pInputText id="proyectoId" [(ngModel)]="proyectoSeleccionado.id" class="flex-auto" autocomplete="off" readonly />
+        </div>
+        -->
+        <!--
+          <div class="flex align-items-center gap-3 mb-3" class="form-group">
+              <label for="nombre" class="font-semibold w-6rem">Nombre</label>
+              <input pInputText id="nombre" [(ngModel)]="arbolDeProblemasCausasEfectosSeleccionado.arbolDeProblemas.nombre" class="flex-auto" autocomplete="off" readonly />
+          </div>
+        -->  
+          <div class="flex align-items-center gap-3 mb-5" class="form-group">
+              <label for="descripcion" class="font-semibold w-6rem">Descripción</label>
+              <input pInputText id="descripcion" [(ngModel)]="arbolDeProblemasCausasEfectosSeleccionado.arbolDeProblemas.descripcion" class="flex-auto" autocomplete="off" readonly />
+          </div>
+          <!-- Listado de causas -->
+        <div class="flex align-items-center gap-3 mb-4" class="form-group">
+        <h4 style="margin-bottom: 0.5rem;">Causas</h4>
+        <ul *ngIf="arbolDeProblemasCausasEfectosSeleccionado.causasArbolDeProblemas?.length > 0; else sinCausas">
+            <li *ngFor="let causa of arbolDeProblemasCausasEfectosSeleccionado.causasArbolDeProblemas">
+               <input pInputText id="descripcioncausa" [(ngModel)]="causa.descripcion" class="flex-auto" autocomplete="off" readonly />
+            </li>
+        </ul>
+        <ng-template #sinCausas>
+            <p class="text-muted">No hay causas registradas.</p>
+        </ng-template>
+        </div>
+
+        <!-- Listado de efectos -->
+        <div class="flex align-items-center gap-3 mb-4" class="form-group">
+        <h4 style="margin-bottom: 0.5rem;">Efectos</h4>
+        <ul *ngIf="arbolDeProblemasCausasEfectosSeleccionado.efectosArbolDeProblemas?.length > 0; else sinEfectos">
+            <li *ngFor="let efecto of arbolDeProblemasCausasEfectosSeleccionado.efectosArbolDeProblemas">
+                <input pInputText id="descripcionefecto" [(ngModel)]="efecto.descripcion" class="flex-auto" autocomplete="off" readonly />
+            </li>
+        </ul>
+        <ng-template #sinEfectos>
+            <p class="text-muted">No hay efectos registrados.</p>
+        </ng-template>
+        </div>
+      </div>
+      <div class="flex justify-content-end gap-2">
+          <p-button label="Cerrar" severity="secondary" (onClick)="visibleDetalleArbolDeProblemas = false"></p-button>
+      </div>
+  </p-dialog>
+
+</body>
+</html>

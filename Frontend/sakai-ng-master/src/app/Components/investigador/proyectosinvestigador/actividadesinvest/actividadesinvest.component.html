@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+</head>
+<body>
+    <!-- 
+    <div class="navbar">
+        <div class="logo">
+            <a href="https://popayan.gov.co/SecretariasyEntidades/secDafe/Paginas/default.aspx#gsc.tab=0" target="_blank" aria-label="Ir al sitio de DAFE">
+                <img src="assets/layout/images/logodafe.png" alt="Logo DAFE" class="logo-img">
+            </a>
+        </div>
+    <ul class="nav-links">
+        <li><a routerLink="/welcome">Investigador</a></li>
+        <li><a routerLink="/welcome">Perfil</a></li>
+        <li><a routerLink="/welcome">Configuración</a></li>
+        <li><a routerLink="/welcome">Ayuda</a></li>
+    </ul>
+    <button (click)="logout()" class="logout-button">Cerrar sesión</button>
+  </div>
+  -->
+
+  <!--
+  <div class="welcome-container">
+    <h1>¡hola! {{ currentUser ? currentUser.username : '' }} Aqui puedes visualizar tus proyectos cargados o crear uno nuevo</h1>
+  </div>
+  -->
+
+  <div>
+    <h2 style="text-align: center; font-weight: bold;">Gestionar Cronograma de Actividades del Proyecto</h2>
+  </div>
+
+  <div *ngIf="actividades?.length==0" class="alert alert-info">
+        No hay cronograma de actividades creado para este proyecto
+  </div>
+
+  <div class="card-header">
+    <div class="d-flex gap-2"> 
+        <button 
+            pButton pRipple type="button" 
+            name="crear actividades" 
+            (click)="generarActividadesDelProyecto()" 
+            icon="pi pi-calendar-clock" 
+            class="p-button-rounded p-button-info p-button-text" 
+            pTooltip="Crear actividades del proyecto" 
+            [disabled]="existenActividades">
+            Generar Actividades
+        </button>
+        <button 
+            pButton pRipple type="button" 
+            name="editar actividades" 
+            [routerLink]="['/investigador/proyectosinvestigador/formactividadesinvest', proyecto.id]" 
+            icon="pi pi-file-edit" 
+            class="p-button-rounded p-button-text" 
+            pTooltip="Editar actividades del proyecto" 
+            [disabled]="!existenActividades">
+            Actualizar Actividades
+        </button>        
+        <button 
+            pButton pRipple type="button" 
+            name="eliminar actividad" 
+            (click)='eliminarActividadesDelProyecto()' 
+            icon="pi pi-trash" 
+            class="p-button-rounded p-button-info p-button-text" 
+            pTooltip="Eliminar actividades del proyecto" 
+            [disabled]="!existenActividades">
+            Eliminar Actividades
+        </button>
+    </div>    
+  </div>
+
+<p-table [value]="actividadesYCML" [tableStyle]="{'min-width': '50rem' } ">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th>Id</th>
+            <th>Nombre de la Actividad</th>
+            <th>Descripción de la Actividad</th>
+            <th>Acciones</th>
+        </tr>
+    </ng-template>
+    <ng-template  pTemplate="body" let-actividadCMarcoLogico let-columns="columns" >
+        <tr >
+            <td>
+                {{actividadCMarcoLogico.id}}
+            </td>
+            <td>
+                {{actividadCMarcoLogico.nombreActividad}}
+            </td>
+            <td>
+                {{actividadCMarcoLogico.descripcionActividad}}
+            </td>
+            <td>
+                <button pButton pRipple type="button" name="ver detalle" (click)='mostrarDetalleActividad(actividadCMarcoLogico)' icon="pi pi-eye" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Ver detalle de actividad"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<div class="form-group mt-5 d-flex justify-content-between align-items-center gap-3">
+  <button class="btn btn-primary"
+         (click)="regresarAlArbolDeObjetivos()">
+    Regresar Al Árbol de Objetivos
+  </button>
+</div>
+
+ <p-dialog header="Detalles de la Actividad" [modal]="true" [(visible)]="visibleDetalleActividad" [style]="{ width: '25rem' }">
+      <div *ngIf="actividadYCMarcoLogicoSeleccionado">
+        <!--
+        <div class="flex align-items-center gap-3 mb-3" class="form-group">
+            <label for="actividadId" class="font-semibold w-10rem">Id de la Actividad</label>
+            <input pInputText id="actividadId" [(ngModel)]="actividadYCMarcoLogicoSeleccionado.id" class="flex-auto" autocomplete="off" readonly />
+        </div>
+        -->
+          <div class="flex align-items-center gap-3 mb-3" class="form-group">
+              <label for="nombreActividad" class="font-semibold w-6rem">Nombre</label>
+              <input pInputText id="nombreActividad" [(ngModel)]="actividadYCMarcoLogicoSeleccionado.nombreActividad" class="flex-auto" autocomplete="off" readonly />
+          </div>
+          <div class="flex align-items-center gap-3 mb-5" class="form-group">
+              <label for="descripcionActividad" class="font-semibold w-6rem">Descripción</label>
+              <input pInputText id="descripcionActividad" [(ngModel)]="actividadYCMarcoLogicoSeleccionado.descripcionActividad" class="flex-auto" autocomplete="off" readonly />
+          </div>
+          <div class="flex align-items-center gap-3 mb-5" class="form-group">
+              <label for="causaDescripcion" class="font-semibold w-6rem">Causa</label>
+              <input pInputText id="causaDescripcion" [(ngModel)]="actividadYCMarcoLogicoSeleccionado.causaDescripcion" class="flex-auto" autocomplete="off" readonly />
+          </div>
+          <div class="flex align-items-center gap-3 mb-5" class="form-group">
+              <label for="efectoDescripcion" class="font-semibold w-6rem">Efecto</label>
+              <input pInputText id="efectoDescripcion" [(ngModel)]="actividadYCMarcoLogicoSeleccionado.efectoDescripcion" class="flex-auto" autocomplete="off" readonly />
+          </div>
+          <div class="flex align-items-center gap-3 mb-5" class="form-group">
+              <label for="medioDescripcion" class="font-semibold w-6rem">Medio</label>
+              <input pInputText id="medioDescripcion" [(ngModel)]="actividadYCMarcoLogicoSeleccionado.medioDescripcion" class="flex-auto" autocomplete="off" readonly />
+          </div>
+          <div class="flex align-items-center gap-3 mb-5" class="form-group">
+              <label for="finDescripcion" class="font-semibold w-6rem">Fin</label>
+              <input pInputText id="finDescripcion" [(ngModel)]="actividadYCMarcoLogicoSeleccionado.finDescripcion" class="flex-auto" autocomplete="off" readonly />
+          </div>
+        <div class="flex align-items-center gap-3 mb-5"  class="form-group">
+              <label for="fechaInicio" class="font-semibold w-8rem">Fecha de Inicio</label>
+              <input pInputText id="fechaInicio" [(ngModel)]="actividadYCMarcoLogicoSeleccionado.fechaInicio" class="flex-auto" autocomplete="off" readonly />
+        </div>
+        <div class="flex align-items-center gap-3 mb-5" class="form-group">
+              <label for="fechaFin" class="font-semibold w-6rem">Fecha Final</label>
+              <input pInputText id="fechaFin" [(ngModel)]="actividadYCMarcoLogicoSeleccionado.fechaFin" class="flex-auto" autocomplete="off" readonly />
+        </div>
+        </div>
+      <div class="flex justify-content-end gap-2">
+          <p-button label="Cerrar" severity="secondary" (onClick)="visibleDetalleActividad = false"></p-button>
+      </div>
+  </p-dialog>
+
+</body>
+</html>

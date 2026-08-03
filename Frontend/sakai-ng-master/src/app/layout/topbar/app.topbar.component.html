@@ -1,0 +1,50 @@
+<div class="layout-topbar">
+
+    <!-- LOGO -->
+    <a class="layout-topbar-logo" routerLink="">
+        <img src="assets/layout/images/escudo-popayan.png" alt="logo">
+        <span>CTeI - Secretaría DAFE</span>
+    </a>
+
+    <!-- BOTÓN MENÚ -->
+    <button
+        #menuButton
+        class="p-link layout-menu-button layout-topbar-button"
+        (click)="layoutService.onMenuToggle()">
+        <i class="pi pi-bars"></i>
+    </button>
+
+    <!-- MENÚ DERECHO -->
+    <div class="layout-topbar-menu">
+
+        <!-- 🔔 NOTIFICACIONES -->
+        <app-notification
+            *ngIf="isLoggedIn() && usuario"
+            [usuario]="usuario">
+        </app-notification>
+
+        <!-- 📅 CALENDARIO -->
+        <button class="p-link layout-topbar-button">
+            <i class="pi pi-calendar"></i>
+            <span>Calendario</span>
+        </button>
+
+        <!-- 👤 PERFIL -->
+        <app-profile
+            *ngIf="isLoggedIn()"
+            [usuario]="usuario">
+        </app-profile>
+
+        <!-- 🔐 LOGIN -->
+        <button
+            *ngIf="!isLoggedIn()"
+            class="p-link layout-topbar-button"
+            [routerLink]="'/login'"
+            pTooltip="Iniciar Sesión">
+
+            <i class="pi pi-user"></i>
+            <span>Iniciar sesión</span>
+        </button>
+
+    </div>
+</div>

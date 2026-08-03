@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 
+  <div class="navbar">
+      <div class="logo">
+          <a href="https://popayan.gov.co/SecretariasyEntidades/secDafe/Paginas/default.aspx#gsc.tab=0" target="_blank" aria-label="Ir al sitio de DAFE">
+              <img src="assets/layout/images/logodafe.png" alt="Logo DAFE" class="logo-img">
+          </a>
+      </div>
+      <ul class="nav-links">
+          <li><a routerLink="/welcome">Investigador</a></li>
+          <li><a routerLink="/welcome">Perfil</a></li>
+          <li><a routerLink="/welcome">Configuración</a></li>
+          <li><a routerLink="/welcome">Ayuda</a></li>
+      </ul>
+      <button (click)="logout()" class="logout-button">Cerrar sesión</button>
+  </div>
+  -->
+
+  <!-- 
+  <div class="welcome-container">
+      <h1>Estamos emocionados de tenerte aquí. Explora nuestras
+           funciones y disfruta de la experiencia. {{ currentUser ? currentUser.username : '' }}!</h1>
+  </div>
+  -->
+
+  <div class="card bg-light text-black">
+    <div class="card-header"><p-tag severity="primary" value="{{ titulo }}"></p-tag></div>
+    <div class="card-body">
+      <form (ngSubmit)="mostrarVistaPrevia(f)" class="register-form" #f="ngForm" novalidate>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="titulo">Título</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.titulo" name="titulo" placeholder="Escribe el título del proyecto" required pattern=".{5,}" #tituloproyecto="ngModel">
+             <div *ngIf="tituloproyecto.invalid && tituloproyecto.touched" class="text-danger">
+              <small *ngIf="tituloproyecto.errors?.['required']">El título es obligatorio.</small>
+              <small *ngIf="tituloproyecto.errors?.['pattern']">El título debe tener al menos 5 caracteres.</small>
+              <small *ngIf="tituloproyecto.errors?.['backend']">{{ tituloproyecto.errors?.['backend'] }}</small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.descripcion" name="descripcion" placeholder="Describe brevemente el proyecto" required pattern=".{10,}" #descripcion="ngModel">
+            <div *ngIf="descripcion.invalid && descripcion.touched" class="text-danger">
+              <small *ngIf="descripcion.errors?.['required']">La descripción es obligatoria.</small>
+              <small *ngIf="descripcion.errors?.['pattern']">La descripción debe tener al menos 10 caracteres.</small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="poblacionObjetivo">Población Objetivo</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.poblacionObjetivo" name="poblacionObjetivo" placeholder="¿Quién se beneficiará del proyecto?" required #poblacionObjetivo="ngModel">
+            <div *ngIf="poblacionObjetivo.invalid && poblacionObjetivo.touched" class="text-danger">
+              <small *ngIf="poblacionObjetivo.errors?.['required']">La población objetivo es obligatoria.</small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="justificacion">Justificación</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.justificacion" name="justificacion" placeholder="¿Por qué es importante este proyecto?" required pattern=".{10,}" #justificacion="ngModel">
+              <div *ngIf="justificacion.invalid && justificacion.touched" class="text-danger">
+                <small *ngIf="justificacion.errors?.['required']">La justificación es obligatoria.</small>
+                <small *ngIf="justificacion.errors?.['pattern']">La justificación debe tener al menos 10 caracteres.</small>
+              </div>
+          </div>
+          <div class="form-group">
+            <label for="presupuesto">Presupuesto</label>
+            <input type="number" class="form-control" [(ngModel)]="proyecto.presupuesto" name="presupuesto" placeholder="Indica el presupuesto estimado" required min="0.01" step="0.01" #presupuesto="ngModel">
+            <div *ngIf="presupuesto.invalid && presupuesto.touched" class="text-danger">
+              <small *ngIf="presupuesto.errors?.['required']">El presupuesto es obligatorio.</small>
+              <small *ngIf="presupuesto.errors?.['min']">El presupuesto debe ser mayor que cero.</small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="resultadosEsperados">Resultados Esperados</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.resultadosEsperados" name="resultadosEsperados" placeholder="¿Qué esperas lograr?" required pattern=".{10,}" #resultadosEsperados="ngModel">
+            <div *ngIf="resultadosEsperados.invalid && resultadosEsperados.touched" class="text-danger">
+              <small *ngIf="resultadosEsperados.errors?.['required']">Los resultados esperados son obligatorios.</small>
+              <small *ngIf="resultadosEsperados.errors?.['pattern']">Los resultados esperados deben tener al menos 10 caracteres.</small>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="observaciones">Observaciones</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.observaciones" name="observaciones" placeholder="Notas adicionales" pattern="^.{0,300}$" #observaciones="ngModel">
+              <div *ngIf="observaciones.invalid && observaciones.touched" class="text-danger">
+                <small *ngIf="observaciones.errors?.['pattern']">Las observaciones no deben exceder los 300 caracteres.</small>
+              </div>
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" [disabled]="!f.valid" type="submit">Vista Previa</button>
+          <!--<button type="submit">Probar validación</button>-->
+          <!--<div class="mt-3"><p class="error-message text-danger" *ngIf="error">{{ error }}</p></div>-->
+          <div class="mt-3"
+            *ngIf="validationError || globalError">
+            <p class="error-message text-danger">
+                <span *ngIf="validationError">
+                    {{ validationError }}
+                </span>
+                <span *ngIf="validationError && globalError">
+                    <br>
+                </span>
+                <span *ngIf="globalError">
+                    {{ globalError }}
+                </span>
+            </p>
+        </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>

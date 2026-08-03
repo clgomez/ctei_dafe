@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 
+  <div class="navbar">
+    <div class="logo">
+        <h1>Dafe</h1>
+    </div>
+    <ul class="nav-links">
+        <li><a routerLink="/welcome">Administrador</a></li>
+        <li><a routerLink="/welcome">Perfil</a></li>
+        <li><a routerLink="/welcome">Configuración</a></li>
+        <li><a routerLink="/welcome">Ayuda</a></li>
+    </ul>
+    <button (click)="logout()" class="logout-button">Cerrar sesión</button>
+  </div>
+
+  <div class="welcome-container">
+    <h1>¡Bienvenido {{ currentUser ? currentUser.username : '' }}!</h1>
+  </div>
+  -->
+  
+  <div>
+    <h2 style="text-align: center; font-weight: bold;">Gestionar Proyectos</h2>
+  </div>
+
+  <div *ngIf="usuariosproyectosconvocatorias?.length==0" class="alert alert-info">
+    No hay registros en la base de datos
+</div>
+
+<p-table [value]="usuariosproyectosconvocatorias" [tableStyle]="{'min-width': '50rem' } ">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th>Id </th>
+            <th>Título Proyecto</th>
+            <th>Nombre Investigador</th>
+            <th>Título Convocatoria</th>
+            <th>Acciones</th>
+        </tr>
+    </ng-template>
+    <ng-template  pTemplate="body" let-usuproyconv let-columns="columns" >
+        <tr >
+            <td>
+                {{usuproyconv.proyecto.id}}
+            </td>
+            <td>
+                {{usuproyconv.proyecto.titulo}}
+            </td>
+            <td>
+                {{usuproyconv.nombresapellidosUsuario}}
+            </td>
+            <td>
+                {{usuproyconv.tituloConvocatoria}}
+            </td>
+            <td>
+                <button pButton pRipple type="button" name="ver detalle" (click)='mostrarDetalleProyecto(usuproyconv.proyecto)' icon="pi pi-eye" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Ver detalle proyecto"></button>
+                <button pButton pRipple type="button" name="calificar proyecto" [routerLink]="['/tutor/calificacionestutor/formcalificaciontut/proyecto',usuproyconv.proyecto.id, 'usuariotutor', usuarioTutor.id]" icon="pi pi-pen-to-square" class="p-button-rounded p-button-text" pTooltip="Calificar proyecto"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-dialog header="Detalles del Proyecto" [modal]="true" [(visible)]="visibleDetalleProyecto" [style]="{ width: '25rem' }">
+    <div *ngIf="proyectoSeleccionado">
+        <!--
+        <div class="flex align-items-center gap-3 mb-3" class="form-group">
+            <label for="proyectoId" class="font-semibold w-10rem">Id del Proyecto</label>
+            <input pInputText id="proyectoId" [(ngModel)]="proyectoSeleccionado.id" class="flex-auto" autocomplete="off" readonly />
+        </div>
+        -->
+        <div class="flex align-items-center gap-3 mb-3" class="form-group">
+            <label for="titulo" class="font-semibold w-6rem">Título</label>
+            <input pInputText id="titulo" [(ngModel)]="proyectoSeleccionado.titulo" class="flex-auto" autocomplete="off" readonly />
+        </div>
+        <div class="flex align-items-center gap-3 mb-5" class="form-group">
+            <label for="descripcion" class="font-semibold w-6rem">Descripción</label>
+            <input pInputText id="descripcion" [(ngModel)]="proyectoSeleccionado.descripcion" class="flex-auto" autocomplete="off" readonly />
+        </div>
+        <div class="flex align-items-center gap-3 mb-5" class="form-group">
+            <label for="poblacionObjetivo" class="font-semibold w-12rem">Población Objetivo</label>
+            <input pInputText id="poblacionObjetivo" [(ngModel)]="proyectoSeleccionado.poblacionObjetivo" class="flex-auto" autocomplete="off" readonly />
+        </div>
+        <div class="flex align-items-center gap-3 mb-5" class="form-group">
+            <label for="justificacion" class="font-semibold w-6rem">Justificación</label>
+            <input pInputText id="justificacion" [(ngModel)]="proyectoSeleccionado.justificacion" class="flex-auto" autocomplete="off" readonly />
+        </div>
+        <div class="flex align-items-center gap-3 mb-5" class="form-group">
+            <label for="presupuesto" class="font-semibold w-6rem">Presupuesto</label>
+            <input pInputText id="presupuesto" [(ngModel)]="proyectoSeleccionado.presupuesto" class="flex-auto" autocomplete="off" readonly />
+        </div>
+        <div class="flex align-items-center gap-3 mb-5" class="form-group">
+            <label for="resultadosEsperados" class="font-semibold w-13rem">Resultados Esperados</label>
+            <input pInputText id="resultadosEsperados" [(ngModel)]="proyectoSeleccionado.resultadosEsperados" class="flex-auto" autocomplete="off" readonly />
+        </div>
+        <div class="flex align-items-center gap-3 mb-5" class="form-group">
+            <label for="observaciones" class="font-semibold w-6rem">Observaciones</label>
+            <input pInputText id="observaciones" [(ngModel)]="proyectoSeleccionado.observaciones" class="flex-auto" autocomplete="off" readonly />
+        </div>
+        <div class="flex align-items-center gap-3 mb-5" class="form-group">
+            <label for="fechaCreacion" class="font-semibold w-12rem">Fecha de Creación</label>
+            <input pInputText id="fechaCreacion" [(ngModel)]="proyectoSeleccionado.fechaCreacion" class="flex-auto" autocomplete="off" readonly/>
+        </div>
+        <div class="flex align-items-center gap-3 mb-5" class="form-group">
+            <label for="fechaActualizacion" class="font-semibold w-13rem">Fecha de Actualización</label>
+            <input pInputText id="fechaActualizacion" [(ngModel)]="proyectoSeleccionado.fechaActualizacion" class="flex-auto" autocomplete="off" readonly/>
+        </div>
+        <div class="flex align-items-center gap-3 mb-5" class="form-group">
+            <label for="estado" class="font-semibold w-6rem">Estado</label>
+            <input pInputText id="estado" [(ngModel)]="proyectoSeleccionado.estado" class="flex-auto" autocomplete="off" readonly />
+        </div>
+    </div>
+    <div class="flex justify-content-end gap-2">
+        <p-button label="Cerrar" severity="secondary" (onClick)="visibleDetalleProyecto = false" />
+    </div>
+</p-dialog>
+
+</body>
+</html>

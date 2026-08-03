@@ -1,0 +1,315 @@
+<div class="profile-dropdown">
+
+  <button
+    class="p-link layout-topbar-button"
+    (click)="toggleProfileMenu(); $event.stopPropagation()">
+
+    <div class="profile-avatar">
+      {{ getUserInitials() }}
+    </div>
+
+    <span>Perfil</span>
+  </button>
+
+  <div class="profile-menu" *ngIf="profileMenuVisible">
+
+    <div class="profile-header">
+      <div class="avatar">
+        {{ getUserInitials() }}
+      </div>
+
+      <div class="user-info">
+        <div class="name">{{ usuario?.nombre }} {{ usuario?.apellidos }}</div>
+        <div class="email">{{ usuario?.email }}</div>
+      </div>
+    </div>
+
+    <hr>
+
+    <button class="profile-option" (click)="mostrarPerfilDelUsuario()">
+      <i class="pi pi-user"></i>
+      <span>Perfil</span>
+    </button>
+
+    <button class="profile-option" (click)="abrirConfiguracionCuenta()">
+      <i class="pi pi-cog"></i>
+      <span>Configuración</span>
+    </button>
+
+    <button class="profile-option logout" (click)="logout()">
+      <i class="pi pi-sign-out"></i>
+      <span>Cerrar sesión</span>
+    </button>
+
+  </div>
+</div>
+
+<!-- MODAL PERFIL -->
+<p-dialog header="Perfil del Usuario" [modal]="true" [(visible)]="visiblePerfilDelUsuario" [style]="{ width: '27rem' }">
+    
+   
+        <form #f="ngForm" novalidate (ngSubmit)="actualizarUsuario(f)" *ngIf="usuarioSeleccionado">
+
+        <!-- Id del Usuario -->
+        <!--<div class="flex align-items-center gap-3 mb-3" class="form-group">
+            <label for="usuarioId" class="font-semibold w-8rem">Id del Usuario</label>
+            <input pInputText id="usuarioId" [(ngModel)]="usuarioSeleccionado.id" name="usuarioId" class="flex-auto" autocomplete="off" disabled/>
+        </div>-->
+
+        <!-- Tipo de Identificación -->
+        <div class="form-group mb-3">
+            <label for="tipoIdentificacion" class="font-semibold w-12rem">Tipo de Identificación</label>
+            <select id="tipoIdentificacion" [(ngModel)]="usuarioSeleccionado.tipoIdentificacion" name="tipoIdentificacion" required>
+                <option value="" disabled>Selecciona una opción</option>
+                <option value="CEDULA_CIUDADANIA">Cédula de Ciudadanía</option>
+                <option value="CEDULA_EXTRANJERIA">Cédula de Extranjería</option>
+                <option value="IDENTIFICACION_MILITAR">Identificación Militar</option>
+                <option value="LICENCIA_DE_CONDUCIR">Licencia de Conducir</option>
+                <option value="NUMERO_DE_IDENTIFICACION_FISCAL">Número de Identificación Fiscal</option>
+                <option value="PASAPORTE">Pasaporte</option>
+                <option value="REGISTRO_CIVIL">Registro Civil</option>
+                <option value="TARJETA_DE_IDENTIDAD" [attr.selected]="true">Tarjeta de Identidad</option>
+              </select>
+        </div>
+    
+
+        <!-- Identificación -->
+        <div class="form-group mb-3">
+            <label for="identificacion" class="font-semibold w-6rem">Identificación</label>
+            <input pInputText id="identificacion" [(ngModel)]="usuarioSeleccionado.identificacion" name="identificacion" class="flex-auto" autocomplete="off" required placeholder="Ingresa el número de identificación" pattern="^\d{6,15}$" #identificacionusuario="ngModel"/>
+            <div *ngIf="identificacionusuario.invalid && identificacionusuario.touched" class="text-danger">
+              <small *ngIf="identificacionusuario.errors?.['required']">La identificación es obligatoria.</small>
+              <small *ngIf="identificacionusuario.errors?.['pattern']">La identificación debe contener entre 6 y 15 dígitos.</small>
+              <small *ngIf="identificacionusuario.errors?.['backend']">{{ identificacionusuario.errors?.['backend'] }}</small>
+            </div>
+        </div>
+
+        <!-- Nombres -->
+        <div class="form-group mb-3">
+            <label for="nombres" class="font-semibold w-6rem">Nombres</label>
+            <input pInputText id="nombres" [(ngModel)]="usuarioSeleccionado.nombre" name="nombres" class="flex-auto" autocomplete="off" required placeholder="Ingresa el nombre" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{2,50}$" #nombreusuario="ngModel"/>
+             <div *ngIf="nombreusuario.invalid && nombreusuario.touched" class="text-danger">
+              <small *ngIf="nombreusuario.errors?.['required']">El nombre es obligatorio.</small>
+              <small *ngIf="nombreusuario.errors?.['pattern']">El nombre debe contener solo letras y tener entre 2 y 50 caracteres.</small>
+            </div>
+        </div>
+
+        <!-- Apellidos -->
+        <div class="form-group mb-3">
+            <label for="apellidos" class="font-semibold w-6rem">Apellidos</label>
+            <input pInputText id="apellidos" [(ngModel)]="usuarioSeleccionado.apellidos" name="apellidos" class="flex-auto" autocomplete="off" required placeholder="Ingresa los apellidos" pattern="^[A-Za-zÁÉÍÓÚáéíóúÑñ ]{2,50}$" #apellidosusuario="ngModel"/>
+            <div *ngIf="apellidosusuario.invalid && apellidosusuario.touched" class="text-danger">
+              <small *ngIf="apellidosusuario.errors?.['required']">Los apellidos son obligatorios.</small>
+              <small *ngIf="apellidosusuario.errors?.['pattern']">Los apellidos deben contener solo letras y tener entre 2 y 50 caracteres.</small>
+            </div>
+        </div>
+
+        <!-- Dirección -->
+        <div class="form-group mb-3">
+            <label for="direccion" class="font-semibold w-6rem">Dirección</label>
+            <input pInputText id="direccion" [(ngModel)]="usuarioSeleccionado.direccion" name="direccion" class="flex-auto" autocomplete="off" required placeholder="Ingresa la dirección" minlength="5" #direccionusuario="ngModel"/>
+            <div *ngIf="direccionusuario.invalid && direccionusuario.touched" class="text-danger">
+              <small *ngIf="direccionusuario.errors?.['required']">La dirección es obligatoria.</small>
+              <small *ngIf="direccionusuario.errors?.['minlength']">La dirección debe tener al menos 5 caracteres.</small>
+            </div>
+        </div>
+
+        <!-- Teléfono -->
+        <div class="form-group mb-3">
+            <label for="telefono" class="font-semibold w-6rem">Teléfono</label>
+            <input pInputText id="telefono" [(ngModel)]="usuarioSeleccionado.telefono" name="telefono" class="flex-auto" autocomplete="off" required placeholder="Ingresa el teléfono" pattern="^\d{10}$" #telefonousuario="ngModel"/>
+             <div *ngIf="telefonousuario.invalid && telefonousuario.touched" class="text-danger">
+              <small *ngIf="telefonousuario.errors?.['required']">El teléfono es obligatorio.</small>
+              <small *ngIf="telefonousuario.errors?.['pattern']">El teléfono debe contener exactamente 10 dígitos.</small>
+              <small *ngIf="telefonousuario.errors?.['backend']">{{ telefonousuario.errors?.['backend'] }}</small>
+            </div>
+        </div>
+
+        <!-- Fecha de Nacimiento -->
+        <div class="form-group mb-3">
+            <label for="fechaNacimiento" class="font-semibold w-12rem">Fecha de Nacimiento</label>
+            <input type="date" id="fechaNacimiento" [(ngModel)]="usuarioSeleccionado.fechaNacimiento" name="fechaNacimiento" required [max]="maxFechaNacimiento" #fechanacimientousuario="ngModel">
+             <div *ngIf="fechanacimientousuario.touched" class="text-danger">
+              <small *ngIf="fechanacimientousuario.errors?.['required']">La fecha de nacimiento es obligatoria.</small>
+              <small *ngIf="!isMinAgeValid()"> Debes tener al menos 9 años para registrarte.</small>
+              <small *ngIf="!fechanacimientousuario.errors?.['required'] && !isMaxAgeValid()">La edad no puede ser mayor a 80 años para actualizar la fecha de nacimiento.</small>
+            </div>
+        </div>
+
+         <!-- Género -->
+        <div class="form-group mb-3">
+            <label for="genero" class="font-semibold w-6rem">Género</label>
+            <select id="genero" [(ngModel)]="usuarioSeleccionado.genero" name="genero" required>
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Otro">Otro</option>
+              </select>
+        </div>
+
+        <!-- Ocupación -->
+        <div class="form-group mb-3">
+            <label for="ocupacion" class="font-semibold w-6rem">Ocupación</label>
+            <select id="ocupacion" [(ngModel)]="usuarioSeleccionado.ocupacion" name="ocupacion" required>
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option value="Profesor">Profesor</option>
+                <option value="Ingeniero">Ingeniero</option>
+                <option value="GerenteDeProyecto">Gerente de Proyecto</option>
+                <option value="Aprendiz">Aprendiz</option>
+                <option value="CoordinadorDeProyectos">Coordinador de Proyectos</option>
+                <option value="Estudiante">Estudiante</option>
+                <option value="Consultor">Consultor</option>
+              </select>
+        </div>
+      
+
+        <!-- Email -->
+        <div class="form-group mb-3">
+            <label for="email" class="font-semibold w-6rem">Email</label>
+            <input pInputText id="email" [(ngModel)]="usuarioSeleccionado.email" name="email" class="flex-auto" autocomplete="off" required placeholder="ejemplo@correo.com" pattern="^[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}$" #emailusuario="ngModel"/>
+             <div *ngIf="emailusuario.invalid && emailusuario.touched" class="text-danger">
+              <small *ngIf="emailusuario.errors?.['required']">El correo electrónico es obligatorio.</small>
+              <small *ngIf="emailusuario.errors?.['pattern']">Formato de email inválido. Ejemplo válido: usuario&#64;dominio.com.</small>
+              <small *ngIf="emailusuario.errors?.['backend']">{{ emailusuario.errors?.['backend'] }}</small>
+            </div>
+        </div>
+
+        <!-- Username -->
+        <div class="form-group mb-3">
+            <label for="username" class="font-semibold w-6rem">Username</label>
+            <input pInputText id="username" [(ngModel)]="usuarioSeleccionado.username" name="username" class="flex-auto" autocomplete="off" required placeholder="Crea un nombre de usuario" pattern="^[A-Za-z0-9_]{4,20}$" #usernameusuario="ngModel"/>
+            <div *ngIf="usernameusuario.invalid && usernameusuario.touched" class="text-danger">
+               <small *ngIf="usernameusuario.errors?.['required']">El nombre de usuario es obligatorio.</small>
+               <small *ngIf="usernameusuario.errors?.['pattern']">El nombre de usuario debe tener entre 4 y 20 caracteres y solo puede contener letras, números o guión bajo.</small>
+               <small *ngIf="usernameusuario.errors?.['backend']">{{ usernameusuario.errors?.['backend'] }}</small>
+            </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group mb-3">
+            <label for="password" class="font-semibold w-6rem">Password</label>
+            <p-password 
+                [(ngModel)]="usuarioSeleccionado.password" 
+                name="password"
+                [feedback]="false" 
+                toggleMask="true" 
+                inputId="password" 
+                class="flex-auto"
+                required 
+                placeholder="Crea una contraseña" 
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$" 
+                #passwordusuario="ngModel"
+                (input)="onPasswordChange()"
+                (click)="$event.stopPropagation()"
+                >
+            </p-password>
+            <div *ngIf="passwordusuario.invalid && passwordusuario.touched" class="text-danger">
+              <small *ngIf="passwordusuario.errors?.['required']">La contraseña es obligatoria.</small>
+              <small *ngIf="passwordusuario.errors?.['pattern']">La contraseña debe tener mínimo 8 caracteres, incluir mayúsculas, minúsculas, números y un carácter especial.</small>
+            </div>
+        </div>
+
+        <!-- Fecha de Registro -->
+        <div class="form-group mb-3">
+            <label for="fechaRegistro" class="font-semibold w-12rem">Fecha de Registro</label>
+            <input pInputText id="fechaRegistro" [(ngModel)]="fechaRegistroFormateada" name="fechaRegistro" class="flex-auto" autocomplete="off" disabled/>
+        </div>
+
+        <!-- Rol -->
+       <div class="flex align-items-center gap-3 mb-3" class="form-group">
+            <label for="roleId" class="font-semibold w-8rem">Rol del Usuario</label>
+            <input pInputText id="rolNombre" [ngModel]="usuarioSeleccionado?.roles?.[0]?.rolNombre || ''" name="rolNombre" class="flex-auto" autocomplete="off" disabled/>
+            <!--<select id="roleId" [(ngModel)]="selectedRole.id" name="roleId">
+                <option [ngValue]="null" disabled>Seleccione Rol</option>
+                <option *ngFor="let rol of roles" [value]="rol.id">
+                    {{ rol.id }} - {{ rol.rolNombre }}
+                </option>
+            </select>-->
+        </div>
+
+        <!-- Estado -->
+        <div class="form-group mb-3">
+            <label for="estado" class="font-semibold w-6rem">Estado</label>
+            <input pInputText id="estado" [(ngModel)]="usuarioSeleccionado.estado" name="estado" class="flex-auto" autocomplete="off" disabled/>
+            <!--<select id="estado" [(ngModel)]="usuarioSeleccionado.estado" name="estado" required>
+                <option value="" disabled selected>Selecciona una opción</option>
+                <option value="ACTIVO">Activo</option>
+                <option value="NO ACTIVO">No Activo</option>
+            </select>-->
+        </div>
+
+    <!-- Botón de Cierre -->
+    <div class="flex justify-content-end gap-2">
+        <p-button label="Cerrar" severity="secondary" (onClick)="visiblePerfilDelUsuario = false" type="button"/>
+     <p-button label="Editar" severity="success" type="submit" [disabled]="!f.valid || !isMinAgeValid() || !isMaxAgeValid()"/>
+        <!--<p-button label="Probar validación" type="submit"/>-->
+    </div>
+    <!--<div class="mt-3"><p class="error-message text-danger" *ngIf="error">{{ error }}</p></div>-->
+    <div class="mt-3"
+            *ngIf="validationError || globalError">
+            <p class="error-message text-danger">
+                <span *ngIf="validationError">
+                    {{ validationError }}
+                </span>
+                <span *ngIf="validationError && globalError">
+                    <br>
+                </span>
+                <span *ngIf="globalError">
+                    {{ globalError }}
+                </span>
+            </p>
+    </div>
+  </form>
+</p-dialog>
+
+<!-- MODAL CONFIG -->
+<p-dialog 
+    [(visible)]="visibleConfiguracionCuenta" 
+    [modal]="true" 
+    [style]="{ width: '40rem' }"
+    [closable]="true"
+    header="">
+
+    <div class="config-container">
+
+        <!-- Sidebar -->
+        <div class="config-sidebar">
+            <div class="config-item active">
+                <i class="pi pi-user"></i>
+                <span>Cuenta</span>
+            </div>
+        </div>
+
+        <!-- Contenido -->
+        <div class="config-content">
+
+            <h2>Cuenta</h2>
+
+            <div class="config-row">
+                <label>Nombre</label>
+                <span>{{ usuario?.nombre }} {{ usuario?.apellidos }}</span>
+            </div>
+
+            <div class="config-row">
+                <label>Correo electrónico</label>
+                <span>{{ usuario?.email }}</span>
+            </div>
+
+            <hr>
+
+            <div class="config-delete">
+                <span>Eliminar cuenta</span>
+                <button 
+                    pButton 
+                    label="Eliminar" 
+                    class="p-button-danger"
+                    [disabled]="esAdministrador()"
+                    (click)="eliminarCuenta()">
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+</p-dialog>

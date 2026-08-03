@@ -1,0 +1,206 @@
+<div class="card">
+
+  <form>
+
+    <ng-container *ngFor="let seccion of secciones">
+
+      <!-- HEADER -->
+      <div class="card-header">
+        <p-tag
+          severity="primary"
+          [value]="seccion.titulo">
+        </p-tag>
+      </div>
+
+      <!-- BODY -->
+      <div class="card-body">
+
+        <div
+          *ngFor="let field of seccion.fields; let i = index"
+          class="form-group">
+
+          <!-- LABEL -->
+          <label class="form-label">
+            {{ field.label }}
+          </label>
+
+          <!-- FILA -->
+          <div class="form-row">
+
+            <!-- TEXTO -->
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="field.value"
+              [name]="seccion.prefix + '-field-' + i"
+              [placeholder]="'Ingrese ' + field.label"
+              [disabled]="true"
+              [ngClass]="field.calificacion"
+            />
+
+            <!-- SELECT -->
+            <select
+              class="form-select"
+              [(ngModel)]="field.calificacion"
+              [name]="seccion.prefix + '-calificacion-' + i"
+              [ngClass]="field.calificacion"
+              (change)="onCalificacionChange(field, true)">
+
+              <option [ngValue]="null" disabled>
+                Seleccione
+              </option>
+
+              <option [ngValue]="EstadoCalificacion.NO_APROBADO">
+                NO APROBADO
+              </option>
+
+              <option [ngValue]="EstadoCalificacion.POR_MEJORAR">
+                POR MEJORAR
+              </option>
+
+              <option [ngValue]="EstadoCalificacion.APROBADO">
+                APROBADO
+              </option>
+
+              <option [ngValue]="EstadoCalificacion.PENDIENTE">
+                PENDIENTE
+              </option>
+
+            </select>
+
+            <!-- ICONO -->
+            <span
+              class="icon"
+              [ngClass]="field.calificacion">
+            </span>
+
+            <!-- SCORE -->
+            <div class="score-control">
+
+              <!-- BTN - -->
+              <button
+                type="button"
+                (click)="decrementar(field)"
+                [disabled]="field.disabled">
+                −
+              </button>
+
+              <!-- INPUT SCORE -->
+              <div class="score-wrapper">
+
+                <input
+                  type="number"
+                  class="score-input"
+                  step="0.1"
+                  min="0"
+                  max="100"
+                  [(ngModel)]="field.puntaje"
+                  [name]="seccion.prefix + '-puntaje-' + i"
+                  [disabled]="field.disabled"
+                  [attr.min]="getMin(field.calificacion)"
+                  [attr.max]="getMax(field.calificacion)"
+                  [title]="getTooltip(field)"
+                  [ngClass]="[
+                    getScoreValidationClass(field),
+                    field.calificacion ?? ''
+                  ]"
+                  (input)="validarRango(field)"
+                  (change)="validarRango(field)"
+                  (blur)="formatearPuntaje(field)"
+                />
+
+                <span class="percent">
+                  %
+                </span>
+
+              </div>
+
+              <!-- BTN + -->
+              <button
+                type="button"
+                (click)="incrementar(field)"
+                [disabled]="field.disabled">
+                +
+              </button>
+
+            </div>
+
+            <!-- SLIDER -->
+            <input
+              *ngIf="field.calificacion"
+              type="range"
+              class="score-slider"
+              step="0.1"
+              [(ngModel)]="field.puntaje"
+              [name]="seccion.prefix + '-slider-' + i"
+              [disabled]="field.disabled"
+              [min]="getMin(field.calificacion)"
+              [max]="getMax(field.calificacion)"
+              [title]="getTooltip(field)"
+              (input)="validarRango(field)"
+            />
+
+          </div>
+
+          <!-- COMENTARIO -->
+          <input
+            type="text"
+            class="form-control comment"
+            placeholder="Comentarios"
+            [(ngModel)]="field.comentarios"
+            [name]="seccion.prefix + '-comentarios-' + i"
+          />
+
+        </div>
+
+      </div>
+
+    </ng-container>
+
+    <!-- BOTONES -->
+    <div class="card-body">
+
+      <div class="submit-button">
+
+        <!-- CREAR -->
+        <button
+          *ngIf="!calificacion.id; else editarBlock"
+          class="btn btn-primary-crear"
+          type="button"
+          (click)="CalificarProyecto()">
+
+          Calificar
+
+        </button>
+
+        <!-- EDITAR -->
+        <ng-template #editarBlock>
+
+          <button
+            class="btn btn-primary-editar"
+            type="button"
+            (click)="RecalificarProyecto()">
+
+            Recalificar
+
+          </button>
+
+        </ng-template>
+
+        <!-- CANCELAR -->
+        <button
+          class="btn btn-primary-cancelar"
+          type="button"
+          (click)="cancelarCalificacion()">
+
+          Cancelar
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </form>
+
+</div>

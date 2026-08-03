@@ -1,0 +1,53 @@
+
+<!--
+<div class="file-upload">
+    <h2>Subir archivo</h2>
+    <form (ngSubmit)="onSubmit()" fileForm="ngForm" >
+      <input type="file" (change)="onFileChange($event)" accept=".pdf,.xlsx" />
+      <button type="submit" [disabled]="!selectedFile">Subir</button>
+    </form>
+    <div *ngIf="responseMessage">
+      <p>{{ responseMessage }}</p>
+    </div>
+  </div>
+-->
+
+  <p-fileUpload 
+      #fu
+      name="demo[]" 
+      [customUpload]="true"
+      (uploadHandler)="onSubmit($event)" 
+      [multiple]="false" 
+      accept=".pdf,.xlsx" 
+      maxFileSize="1000000" 
+      mode="advanced"
+      chooseLabel="Seleccionar archivo"
+      uploadLabel="Subir archivo"
+      cancelLabel="Cancelar"
+      chooseStyleClass="btn-choose"
+      uploadStyleClass="btn-upload"
+      cancelStyleClass="btn-cancel"
+      invalidFileTypeMessageSummary="{0}: Tipo de archivo no válido,"
+      invalidFileTypeMessageDetail="Tipos de archivos permitidos: .pdf, .xlsx.">
+      <ng-template pTemplate="content">
+        
+        <div *ngIf="fu.files.length === 0" 
+              class="p-m-3 p-text-center text-gray-500">
+              Arrastra y suelta archivos aquí para subirlos.
+        </div>
+      </ng-template>
+  </p-fileUpload>
+
+
+<!--<div class="container">
+    <h1>Subir Archivo</h1>
+    <input type="file" (change)="onFileChange($event)" />
+    <button (click)="uploadFile()">Subir</button>
+    <div *ngIf="response">
+      <h2>File Content</h2>
+      <pre>{{ response }}</pre>
+    </div>
+  </div>
+-->
+
+

@@ -1,0 +1,347 @@
+/* Estilos generales del formulario */
+
+/*
+.form-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+}
+
+input {
+  padding: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 50%;
+}
+
+.form-select {
+  padding: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 21%;
+}*/
+
+/* Colores de los inputs según la calificación */
+
+/*
+
+.APROBADO {
+  background-color: #d4edda;
+  border-color: #28a745;
+}
+
+.POR_MEJORAR {
+  background-color: #fff3cd;
+  border-color: #ffc107;
+}
+
+.regular {
+  background-color: #f8d7da;
+  border-color: #dc3545;
+}
+
+.NO_APROBADO {
+  background-color: #f5c6cb;
+  border-color: #dc3545;
+}
+*/
+/* Iconos de las calificaciones */
+/*
+.icon {
+  margin-left: 10px;
+}
+
+.icon.APROBADO:before {
+
+  content: "✔";
+  color: green;
+}
+
+.icon.POR_MEJORAR:before {
+
+  content: "👍";
+  color: orange;
+}
+
+.icon.regular:before {
+  content: "⚠";
+  color: red;
+}
+
+.icon.NO_APROBADO:before {
+  content: "✖";
+  color: darkred;
+}*/
+/*
+ .card {
+    max-width: 1000px; 
+    margin: 40px auto;
+    padding: 30px;
+    border-radius: 15px;
+    background-color: #f8f9fa;
+    transition: background-color 0.3s ease, transform 0.3s ease; 
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+.card-header {
+    font-size: 2.5em; 
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center; 
+    color: #333; 
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+  }
+    */
+
+
+.card {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 15px;
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.card-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-weight: bold;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-control {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 40%;
+}
+
+.form-select {
+  padding: 10px;
+  border-radius: 5px;
+  width: 20%;
+}
+
+.score-control {
+  display: flex;
+  align-items: center;
+}
+
+.score-control input {
+  width: 80px;
+  text-align: center;
+}
+
+.score-control button {
+  width: 32px;
+  height: 32px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.comment {
+  margin-top: 8px;
+  width: 100%;
+}
+
+/* COLORES */
+.APROBADO { background-color: #d4edda; }
+.POR_MEJORAR { background-color: #fff3cd; }
+.NO_APROBADO { background-color: #f8d7da; }
+.PENDIENTE { background-color: #dbeafe; }
+
+/* ICONOS */
+.icon {
+  font-size: 20px;
+}
+
+.icon.APROBADO::before {
+  content: "✔";
+  color: green;
+}
+
+.icon.POR_MEJORAR::before {
+  content: "👍";
+  color: orange;
+}
+
+.icon.NO_APROBADO::before {
+  content: "✖";
+  color: red;
+}
+
+.icon.PENDIENTE::before {
+  content: "⏳";
+  color: blue;
+}
+
+.score-wrapper {
+  position: relative;
+}
+
+.score-wrapper input {
+  width: 80px;
+  padding-right: 20px;
+  text-align: center;
+}
+
+.percent {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.85em;
+  color: #555;
+}
+
+.score-slider {
+  width: 200px;
+  margin-left: 10px;
+}
+
+/*.score-valid {
+  border: 2px solid #28a745;
+  background-color: #d4edda;
+}
+
+.score-invalid {
+  border: 2px solid #dc3545;
+  background-color: #f8d7da;
+}
+
+.score-pending {
+  border: 2px solid #3b82f6;
+  background-color: #dbeafe;
+}*/
+
+/*.score-valid {
+  border: 2px solid #28a745;
+}
+
+.score-invalid {
+  border: 2px solid #dc3545;
+}
+
+.score-pending {
+  border: 2px solid #3b82f6;
+}*/
+
+.score-valid {
+  /* opcional: sombra suave */
+  box-shadow: 0 0 3px rgba(40, 167, 69, 0.3);
+}
+
+.score-invalid {
+  border-style: dashed;
+}
+
+.score-pending {
+  opacity: 0.8;
+}
+
+
+.btn-primary-crear {
+    background-color: #00bfff;
+    border-color: #edf4ed;
+    color: white;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+
+  .btn-primary-crear:hover {
+    background-color:#008fb3;
+    transform: scale(1.1);
+  }
+
+.btn-primary-editar {
+    background-color: #32cd32;
+    border-color: #32cd32;
+    color: white;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+
+  .btn-primary-editar:hover {
+    background-color: #228b22;
+    transform: scale(1.1);
+  }
+
+  .btn-primary-cancelar {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+
+  .btn-primary-cancelar:hover {
+    background-color: #c82333;
+    transform: scale(1.1);
+  }
+
+  /* SELECT por estado */
+select.APROBADO {
+  border: 2px solid #28a745;
+  background-color: #d4edda;
+}
+
+select.POR_MEJORAR {
+  border: 2px solid #ffc107;
+  background-color: #fff3cd;
+}
+
+select.NO_APROBADO {
+  border: 2px solid #dc3545;
+  background-color: #f8d7da;
+}
+
+select.PENDIENTE {
+  border: 2px solid #3b82f6;
+  background-color: #dbeafe;
+}
+
+
+/* ESTADOS (mandan sobre todo) */
+input.APROBADO {
+  border: 2px solid #28a745;
+}
+
+input.POR_MEJORAR {
+  border: 2px solid #ffc107;
+}
+
+input.NO_APROBADO {
+  border: 2px solid #dc3545;
+}
+
+input.PENDIENTE {
+  border: 2px solid #3b82f6;
+}

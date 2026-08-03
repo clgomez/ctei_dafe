@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+</head>
+<body>
+    <!-- 
+    <div class="navbar">
+        <div class="logo">
+            <a href="https://popayan.gov.co/SecretariasyEntidades/secDafe/Paginas/default.aspx#gsc.tab=0" target="_blank" aria-label="Ir al sitio de DAFE">
+                <img src="assets/layout/images/logodafe.png" alt="Logo DAFE" class="logo-img">
+            </a>
+        </div>
+    <ul class="nav-links">
+        <li><a routerLink="/welcome">Investigador</a></li>
+        <li><a routerLink="/welcome">Perfil</a></li>
+        <li><a routerLink="/welcome">Configuración</a></li>
+        <li><a routerLink="/welcome">Ayuda</a></li>
+    </ul>
+    <button (click)="logout()" class="logout-button">Cerrar sesión</button>
+  </div>
+  -->
+
+  <!--
+  <div class="welcome-container">
+    <h1>¡hola! {{ currentUser ? currentUser.username : '' }} Aqui puedes visualizar tus proyectos cargados o crear uno nuevo</h1>
+  </div>
+  -->
+
+ <!--<div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+        <button pButton pRipple type="button" name="crear" [routerLink]="['/investigador/proyectosinvestigador/formproyectosinvest']" icon="pi pi-file" class="p-button-rounded p-button-info p-button-text" pTooltip="Crear proyecto">Nuevo Proyecto</button>
+    </ul>
+  </div>
+  -->
+
+  <div>
+    <h2 style="text-align: center; font-weight: bold;">Gestionar Proyectos</h2>
+  </div>
+
+  <div *ngIf="proyectos?.length==0" class="alert alert-info">
+    No hay registros en la base de datos
+  </div>
+
+  <!--
+  <p-table [value]="proyectos" [tableStyle]="{'min-width': '50rem' }">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th>Id</th>
+            <th>Titulo</th>
+            <th>Fecha de Creación</th>
+            <th>Fecha de Actualización</th>
+            <th>Acciones</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-proyecto let-columns="columns">
+        <tr>
+            <td>{{proyecto.id}}</td>
+            <td>{{proyecto.titulo}}</td>
+            <td>{{proyecto.fechaCreacion}}</td>
+            <td>{{proyecto.fechaActualizacion}}</td>
+            <td>
+                <button pButton pRipple type="button" name="editar" [routerLink]="['/investigador/proyectosinvestigador/formproyectosinvest', proyecto.id]" icon="pi pi-file-edit" class="p-button-rounded p-button-text" pTooltip="Editar proyecto"></button>
+                <button pButton pRipple type="button" name="eliminar" (click)='eliminarProyecto(proyecto)' icon="pi pi-trash" class="p-button-rounded p-button-info p-button-text" pTooltip="Eliminar proyecto"></button>
+                <button pButton pRipple type="button" name="ver detalle" (click)='mostrarDetalleProyecto(proyecto)' icon="pi pi-eye" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Ver detalle proyecto"></button>
+                <button pButton pRipple type="button" name="inscribirse a convocatoria" [routerLink]="['/investigador/inscripcionesinvestigador/inscripcionproyectoinvest', proyecto.id]" icon="pi pi-pencil" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Inscribir proyecto"></button>
+                <button pButton pRipple type="button" name="formular proyecto" [routerLink]="['/investigador/proyectosinvestigador/formarboldeproblemasinvest', proyecto.id]" icon="pi pi-chart-line" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Formular proyecto"></button>
+                <button pButton pRipple type="button" name="programar actividades" [routerLink]="['/investigador/proyectosinvestigador/formactividadesinvest', proyecto.id]" icon="pi pi-calendar-clock" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Programar actividades"></button>
+                <button pButton pRipple type="button" name="cronograma de actividades" [routerLink]="['/investigador/proyectosinvestigador/cronogramainvest', proyecto.id]" icon="pi pi-clock" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Cronograma de actividades"></button>
+            </td>
+        </tr>
+    </ng-template>
+  </p-table>
+-->
+
+  <p-table
+        #dt2
+        [value]="proyectos"
+        dataKey="id"
+        [rows]="10"
+        [rowsPerPageOptions]="[10, 25, 50]"
+        [loading]="loading"
+        [paginator]="true"
+        [globalFilterFields]="['id', 'titulo']"
+        [tableStyle]="{ 'min-width': '75rem' }">
+        <ng-template pTemplate="caption">
+            <div class="flex">
+                <p-iconField iconPosition="left" class="ml-auto">
+                    <p-inputIcon pTooltip="Buscar proyecto">
+                        <i class="pi pi-search" ></i>
+                    </p-inputIcon>
+                    <input
+                        pInputText
+                        type="text"
+                        (input)="dt2.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Clave de búsqueda"/>
+                </p-iconField>
+            </div>
+            <div class="card-header">
+                <div class="d-flex gap-2"> 
+                    <button pButton pRipple type="button" name="crear" [routerLink]="['/investigador/proyectosinvestigador/formproyectosinvest']" icon="pi pi-file" class="p-button-rounded p-button-info p-button-text" pTooltip="Crear proyecto">Nuevo Proyecto</button>
+                    <button pButton pRipple type="button" name="importar" [routerLink]="['/file-import']" icon="pi pi-file-import" class="p-button-rounded p-button-warning p-button-text" pTooltip="Importar proyecto">Importar Proyecto</button>
+                </div>    
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width:0%">Id</th>
+                <th style="width:0%">Título</th>
+                <th style="width:0%">Fecha de Creación</th>
+                <th style="width:0%">Fecha de Actualización</th>
+                <th style="width:0%">Acciones</th>
+                
+            </tr>
+          </ng-template>
+        <ng-template pTemplate="body" let-proyecto>
+            <tr>
+                <td>
+                    {{proyecto.id}}
+                </td>
+                <td>
+                    {{proyecto.titulo}}
+                </td>
+                <td>
+                    {{proyecto.fechaCreacion}}
+                </td>
+                <td>
+                    {{proyecto.fechaActualizacion}}
+                </td>
+                <td>
+                    <button pButton pRipple type="button" name="ver detalle" (click)='mostrarDetalleProyecto(proyecto)' icon="pi pi-eye" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Ver detalle proyecto"></button>
+                    <button pButton pRipple type="button" name="editar" [routerLink]="['/investigador/proyectosinvestigador/formproyectosinvest', proyecto.id]" icon="pi pi-file-edit" class="p-button-rounded p-button-text" pTooltip="Editar proyecto"></button>
+                    <button pButton pRipple type="button" name="eliminar" (click)='eliminarProyecto(proyecto)' icon="pi pi-trash" class="p-button-rounded p-button-info p-button-text" pTooltip="Eliminar proyecto"></button>
+                    <!--<button pButton pRipple type="button" name="exportar a pdf" (click)='exportarProyecto(proyecto,"PDF")' icon="pi pi-file-pdf" class="p-button-rounded p-button-danger p-button-text" pTooltip="Exportar proyecto a PDF"></button>
+                    <button pButton pRipple type="button" name="exportar a excel" (click)='exportarProyecto(proyecto,"Excel")' icon="pi pi-file-excel" class="p-button-rounded p-button-success p-button-text" pTooltip="Exportar proyecto a EXCEL"></button>-->
+                    <p-splitButton
+                        [label]="''"
+                        icon="pi pi-download"
+                        (onClick)="exportarProyecto(proyecto, 'PDF')"
+                        [model]="proyecto.itemsExportar"
+                        class="p-button-rounded p-button-text custom-split-button"
+                        appendTo="body"
+                        [id]="'btn-export-' + proyecto.id"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        aria-controls="'menu-export-' + proyecto.id"
+                        aria-label="Menú de exportación"
+                        (onMenuShow)="setAriaExpanded(proyecto.id, true)"
+                        (onMenuHide)="setAriaExpanded(proyecto.id, false)"
+                        (keydown)="onKeyDown($event, proyecto)"
+                        pTooltip="Exportar proyecto">
+                    </p-splitButton>
+                    <button pButton pRipple type="button" name="inscribirse a convocatoria" [routerLink]="['/investigador/inscripcionesinvestigador/inscripcionproyectoinvest', proyecto.id]" icon="pi pi-pencil" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Inscribir proyecto"></button>
+                    <button pButton pRipple type="button" name="formular proyecto" [routerLink]="['/investigador/proyectosinvestigador/arboldeproblemasinvest', proyecto.id]" icon="pi pi-chart-line" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Formular proyecto"></button>
+                    <!--<button pButton pRipple type="button" name="programar actividades" [routerLink]="['/investigador/proyectosinvestigador/formactividadesinvest', proyecto.id]" icon="pi pi-calendar-clock" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Programar actividades"></button>
+                    <button pButton pRipple type="button" name="cronograma de actividades" [routerLink]="['/investigador/proyectosinvestigador/cronogramainvest', proyecto.id]" icon="pi pi-clock" class="p-button-rounded p-button-secondary p-button-text" pTooltip="Cronograma de actividades"></button>-->
+               </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="5">No se encontraron proyectos.</td>
+            </tr>
+        </ng-template>
+</p-table>
+
+  <p-dialog header="Detalles del Proyecto" [modal]="true" [(visible)]="visibleDetalleProyecto" [style]="{ width: '25rem' }">
+      <div *ngIf="proyectoSeleccionado">
+        <!--
+        <div class="flex align-items-center gap-3 mb-3" class="form-group">
+            <label for="proyectoId" class="font-semibold w-10rem">Id del Proyecto</label>
+            <input pInputText id="proyectoId" [(ngModel)]="proyectoSeleccionado.id" class="flex-auto" autocomplete="off" readonly />
+        </div>
+        -->
+          <div class="flex align-items-center gap-3 mb-3" class="form-group">
+              <label for="titulo" class="font-semibold w-6rem">Título</label>
+              <input pInputText id="titulo" [(ngModel)]="proyectoSeleccionado.titulo" class="flex-auto" autocomplete="off" readonly />
+          </div>
+          <div class="flex align-items-center gap-3 mb-5" class="form-group">
+              <label for="descripcion" class="font-semibold w-6rem">Descripción</label>
+              <input pInputText id="descripcion" [(ngModel)]="proyectoSeleccionado.descripcion" class="flex-auto" autocomplete="off" readonly />
+          </div>
+          <div class="flex align-items-center gap-3 mb-5" class="form-group">
+              <label for="poblacionObjetivo" class="font-semibold w-12rem">Población Objetivo</label>
+              <input pInputText id="poblacionObjetivo" [(ngModel)]="proyectoSeleccionado.poblacionObjetivo" class="flex-auto" autocomplete="off" readonly />
+          </div>
+          <div class="flex align-items-center gap-3 mb-5" class="form-group">
+              <label for="justificacion" class="font-semibold w-6rem">Justificación</label>
+              <input pInputText id="justificacion" [(ngModel)]="proyectoSeleccionado.justificacion" class="flex-auto" autocomplete="off" readonly />
+          </div>
+          <div class="flex align-items-center gap-3 mb-5" class="form-group">
+              <label for="presupuesto" class="font-semibold w-6rem">Presupuesto</label>
+              <input pInputText id="presupuesto" [(ngModel)]="proyectoSeleccionado.presupuesto" class="flex-auto" autocomplete="off" readonly />
+          </div>
+          <div class="flex align-items-center gap-3 mb-5" class="form-group">
+              <label for="resultadosEsperados" class="font-semibold w-13rem">Resultados Esperados</label>
+              <input pInputText id="resultadosEsperados" [(ngModel)]="proyectoSeleccionado.resultadosEsperados" class="flex-auto" autocomplete="off" readonly />
+          </div>
+          <div class="flex align-items-center gap-3 mb-5" class="form-group">
+              <label for="observaciones" class="font-semibold w-6rem">Observaciones</label>
+              <input pInputText id="observaciones" [(ngModel)]="proyectoSeleccionado.observaciones" class="flex-auto" autocomplete="off" readonly />
+          </div>
+          <div class="flex align-items-center gap-3 mb-5" class="form-group">
+              <label for="fechaCreacion" class="font-semibold w-12rem">Fecha de Creación</label>
+              <input pInputText id="fechaCreacion" [(ngModel)]="proyectoSeleccionado.fechaCreacion" class="flex-auto" autocomplete="off" readonly/>
+          </div>
+          <div class="flex align-items-center gap-3 mb-5" class="form-group">
+              <label for="fechaActualizacion" class="font-semibold w-13rem">Fecha de Actualización</label>
+              <input pInputText id="fechaActualizacion" [(ngModel)]="proyectoSeleccionado.fechaActualizacion" class="flex-auto" autocomplete="off" readonly/>
+          </div>
+          <div class="flex align-items-center gap-3 mb-5" class="form-group">
+              <label for="estado" class="font-semibold w-6rem">Estado</label>
+              <input pInputText id="estado" [(ngModel)]="proyectoSeleccionado.estado" class="flex-auto" autocomplete="off" readonly />
+          </div>
+      </div>
+      <div class="flex justify-content-end gap-2">
+          <p-button label="Cerrar" severity="secondary" (onClick)="visibleDetalleProyecto = false"></p-button>
+      </div>
+  </p-dialog>
+
+</body>
+</html>

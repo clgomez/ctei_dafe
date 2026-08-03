@@ -1,0 +1,6 @@
+export enum EstadoCalificacion {
+  PENDIENTE = 'PENDIENTE',
+  NO_APROBADO = 'NO_APROBADO',
+  POR_MEJORAR = 'POR_MEJORAR',
+  APROBADO = 'APROBADO'
+}

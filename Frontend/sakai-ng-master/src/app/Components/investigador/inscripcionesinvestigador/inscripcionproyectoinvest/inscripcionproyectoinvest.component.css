@@ -1,0 +1,162 @@
+/* Estilos generales */
+body {
+    margin: 0;
+    font-family: 'Comic Sans MS', Arial, sans-serif;
+    background-color: #f0f8ff;
+  }
+
+  /* Barra de navegación */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1f66ea;
+    padding: 10px 15px;
+    font-size: 1em;
+  }
+
+  .logo h1 {
+    color: #ff6347;
+    margin: 0;
+    font-size: 1.5em;
+  }
+
+  /* Lista de enlaces de navegación */
+  .nav-links {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-links li {
+    margin: 0 8px;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+    transition: color 0.3s;
+    font-size: 0.9em;
+  }
+
+  .nav-links a:hover {
+    color: #ff6347;
+  }
+
+  /* Ajustes en pantallas pequeñas */
+  @media (max-width: 600px) {
+    .navbar {
+      padding: 8px 10px;
+    }
+
+    .logo h1 {
+      font-size: 1.2em;
+    }
+
+    .nav-links a {
+      font-size: 0.8em;
+      padding: 5px 8px;
+    }
+  }
+
+
+  /* Botón de cierre de sesión */
+  .logout-button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ff6347;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1em;
+  }
+
+  .logout-button:hover {
+    background-color: #ff4500;
+  }
+
+  /* Contenedor de bienvenida */
+  .welcome-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 25px;
+    border: 2px dashed #ffcc00;
+    border-radius: 15px;
+    background-color: #fff8dc;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  .welcome-container h1 {
+    font-size: 2em;
+    color: #ff6347;
+    margin-bottom: 15px;
+  }
+
+  .welcome-container p {
+    font-size: 1.2em;
+    color: #333;
+  }
+
+
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      padding: 10px;
+    }
+
+    .nav-links {
+      flex-direction: column;
+    }
+
+    .nav-links li {
+      margin: 5px 0;
+    }
+
+    .welcome-container {
+      padding: 20px;
+      font-size: 0.9em;
+    }
+
+    .welcome-container h1 {
+      font-size: 1.8em;
+    }
+  }
+
+    p-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1em;
+    font-family: Arial, sans-serif;
+    text-align: left;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+p-table th, p-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+p-table th {
+    background-color: #1827d0;
+    color: white;
+    text-transform: capitalize;
+    letter-spacing: 0.1em;
+}
+
+p-table tr {
+    transition: background-color 0.2s;
+}
+
+p-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+p-table td {
+    color: #333;
+}

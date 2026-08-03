@@ -1,0 +1,123 @@
+/* Contenedor general */
+.notification-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Botón campana */
+.layout-topbar-button {
+    position: relative;
+}
+
+/* 🔴 Contador (número) */
+.notification-dot-number {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background-color: red;
+    color: white;
+    font-size: 10px;
+    font-weight: bold;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 16px;
+    z-index: 3;
+}
+
+/* 🔵 Punto azul (no leída) */
+.notification-dot-unread {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #007bff;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+/* 📦 Menú desplegable */
+.notification-menu {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    width: 350px;
+    max-height: 400px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+    padding: 10px;
+    z-index: 1000;
+}
+
+/* Título */
+.notification-menu h3 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+/* Lista */
+.notification-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Item */
+.notificacion-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s;
+}
+
+.notificacion-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* Mensaje */
+.notificacion-item .mensaje {
+    flex: 1;
+    font-size: 13px;
+    margin-right: 10px;
+}
+
+/* Acciones */
+.notificacion-item .acciones {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Scroll bonito */
+.notification-menu::-webkit-scrollbar {
+    width: 6px;
+}
+
+.notification-menu::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+
+/*nuevo efecto*/
+.notification-menu {
+    animation: fadeIn 0.15s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

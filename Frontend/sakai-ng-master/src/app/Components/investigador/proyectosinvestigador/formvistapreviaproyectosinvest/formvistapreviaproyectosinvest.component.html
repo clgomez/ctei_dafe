@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vista Previa Proyecto</title>
+
+</head>
+<body>
+  <!-- 
+  <div class="navbar">
+    <div class="logo">
+      <a href="https://popayan.gov.co/SecretariasyEntidades/secDafe/Paginas/default.aspx#gsc.tab=0" target="_blank" aria-label="Ir al sitio de DAFE">
+        <img src="assets/layout/images/logodafe.png" alt="Logo DAFE" class="logo-img">
+      </a>
+    </div>
+    <ul class="nav-links">
+      <li><a routerLink="/welcome">Investigador</a></li>
+      <li><a routerLink="/welcome">Perfil</a></li>
+      <li><a routerLink="/welcome">Configuración</a></li>
+      <li><a routerLink="/welcome">Ayuda</a></li>
+    </ul>
+    <button (click)="logout()" class="logout-button">Cerrar sesión</button>
+  </div>
+  -->
+
+  <!--
+  <div class="welcome-container">
+    <h1>¡HOLA {{ currentUser ? currentUser.username : '' }}! REVISA AQUÍ TU PROYECTO</h1>
+  </div>
+ -->
+
+  <div class="card bg-light text-black">
+    <div class="card-header"><p-tag severity="warning" value="{{ titulo }}"></p-tag></div>
+    <div class="card-body">
+      <form (ngSubmit)="guardarProyecto(f)" class="register-form" #f="ngForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="titulo">Título</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.titulo" name="titulo" disabled="true">
+          </div>
+          <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.descripcion" name="descripcion" disabled="true">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="poblacionObjetivo">Población Objetivo</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.poblacionObjetivo" name="poblacionObjetivo" disabled="true">
+          </div>
+          <div class="form-group">
+            <label for="justificacion">Justificación</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.justificacion" name="justificacion" disabled="true">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="presupuesto">Presupuesto</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.presupuesto" name="presupuesto" disabled="true">
+          </div>
+          <div class="form-group">
+            <label for="resultadosEsperados">Resultados Esperados</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.resultadosEsperados" name="resultadosEsperados" disabled="true">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="observaciones">Observaciones</label>
+            <input type="text" class="form-control" [(ngModel)]="proyecto.observaciones" name="observaciones" disabled="true">
+          </div>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary-crear" type="submit" *ngIf="!proyecto.id else elseBlock">Crear</button>
+          <ng-template #elseBlock>
+            <button class="btn btn-primary-editar" type="submit">Editar</button>
+          </ng-template>
+          <button class="btn btn-primary-salir-vista-previa" type="button" (click)="salirVistaPreviaProyecto()">Salir Vista Previa</button>
+          <!--<div class="mt-3"><p class="error-message text-danger" *ngIf="error">{{ error }}</p></div>-->
+           <div class="mt-3"
+            *ngIf="validationError || globalError">
+            <p class="error-message text-danger">
+                <span *ngIf="validationError">
+                    {{ validationError }}
+                </span>
+                <span *ngIf="validationError && globalError">
+                    <br>
+                </span>
+                <span *ngIf="globalError">
+                    {{ globalError }}
+                </span>
+            </p>
+        </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

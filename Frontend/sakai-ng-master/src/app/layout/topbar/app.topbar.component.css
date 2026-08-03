@@ -1,0 +1,42 @@
+/* Contenedor principal */
+.layout-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+}
+
+/* Logo */
+.layout-topbar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.layout-topbar-logo img {
+    width: 40px;
+    height: 40px;
+}
+
+/* Menú derecho */
+.layout-topbar-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Botones */
+.layout-topbar-button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+}
+
+/* Responsive (opcional) */
+@media (max-width: 768px) {
+    .layout-topbar-menu span {
+        display: none;
+    }
+}

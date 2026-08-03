@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- 
+  <div class="navbar">
+    <div class="logo">
+        <h1>Dafe</h1>
+    </div>
+    <ul class="nav-links">
+        <li><a routerLink="/welcome">Administrador</a></li>
+        <li><a routerLink="/welcome">Perfil</a></li>
+        <li><a routerLink="/welcome">Configuración</a></li>
+        <li><a routerLink="/welcome">Ayuda</a></li>
+    </ul>
+    <button (click)="logout()" class="logout-button">Cerrar sesión</button>
+  </div>
+
+  <div class="welcome-container">
+    <h1>¡Bienvenido {{ currentUser ? currentUser.username : '' }}!</h1>
+  </div>
+  -->
+  <div>
+    <h2 style="text-align: center; font-weight: bold;">Gestionar Asignación de Roles</h2>
+  </div>
+
+  <div *ngIf="asignacionesDeRolesNomPITE?.length==0"class="alert alert-info">
+    No hay registros en la base de datos
+  </div>
+
+ <div class="card-header" >
+    <div class="d-flex gap-2">
+       <button pButton pRipple type="button" name="crear" [routerLink]="['/administrador/proyectosadministrador/proyectosadmin']" icon="pi pi-file" class="p-button-rounded p-button-info p-button-text" pTooltip="Crear asignación de roles ">Nueva Asignación de Roles</button>
+    </div>
+  </div>
+
+<p-table [value]="asignacionesDeRolesNomPITE" [tableStyle]="{'min-width': '50rem' } ">
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th>Id</th>
+            <th>Proyecto</th>
+            <th>Investigador</th>
+            <th>Tutor Asignado</th>
+            <th>Evaluador Asignado</th>
+            <th>Fecha de Asignación</th>
+            <th>Fecha de Actualización</th>
+            <th>Acciones</th>
+        </tr>
+    </ng-template>
+    <ng-template  pTemplate="body" let-asignacionDeRolesNombresProyInvestTutEval let-columns="columns" >
+        <tr >
+            <td>
+                {{asignacionDeRolesNombresProyInvestTutEval.id}}
+            </td>
+            <td>
+                {{asignacionDeRolesNombresProyInvestTutEval.tituloProyecto}}
+            </td>
+            <td>
+                {{asignacionDeRolesNombresProyInvestTutEval.nombreUsuarioInvestigador}}
+            </td>
+            <td>
+                {{asignacionDeRolesNombresProyInvestTutEval.nombreUsuarioTutor}}
+            </td>
+            <td>
+                {{asignacionDeRolesNombresProyInvestTutEval.nombreUsuarioEvaluador}}
+            </td>
+            <td>
+                {{asignacionDeRolesNombresProyInvestTutEval.fechaAsignacion}}
+            </td>
+            <td>
+                {{asignacionDeRolesNombresProyInvestTutEval.fechaActualizacion}}
+            </td>
+            <td>
+                <button pButton pRipple type="button" name="reasignacion de roles" [routerLink]="['/administrador/asignacionderolesadministrador/formasignacionderolesadmin/asignacion', asignacionDeRolesNombresProyInvestTutEval.id]" icon="pi pi-user-plus" class="p-button-rounded p-button-text" pTooltip="Reasignación de roles"></button>
+                <button pButton pRipple type="button" name="eliminar" (click)='eliminarAsignacionDeRoles(asignacionDeRolesNombresProyInvestTutEval)' icon="pi pi-trash" class="p-button-rounded p-button-info p-button-text" pTooltip="Eliminar asignación"></button> 
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+</body>
+</html>

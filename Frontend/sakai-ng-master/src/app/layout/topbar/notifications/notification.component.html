@@ -1,0 +1,93 @@
+<div class="notification-dropdown">
+
+  <button class="p-link layout-topbar-button" (click)="toggleNotifications(); $event.stopPropagation()">
+    <i class="pi pi-bell"></i>
+
+    <span *ngIf="hasUnreadNotifications()" class="notification-dot-number" style="position: relative; display: inline-block;">
+      {{ unreadNotificationsCount }}
+    </span>
+
+    <span>Notificaciones</span>
+  </button>
+
+  <div *ngIf="notificacionesVisible" class="notification-menu">
+
+    <h3>Notificaciones</h3>
+
+    <div *ngIf="notificaciones.length === 0">
+      No hay notificaciones
+    </div>
+
+    <ul>
+      <li *ngFor="let n of notificaciones" class="notificacion-item">
+
+        <span class="mensaje">{{ n.mensaje }}</span>
+
+        <div class="acciones">
+
+          <button
+            pButton
+            icon="pi pi-eye"
+            class="p-button-rounded p-button-text"
+            (click)="mostrarDetalleNotificacion(n)"
+            pTooltip="Ver detalle notificación">
+          </button>
+
+          <span
+            *ngIf="!n.leida"
+            class="notification-dot-unread"
+            (click)="markAsRead(n); $event.stopPropagation()"
+            pTooltip="Marcar como leída">
+          </span>
+
+          <button
+            pButton
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-text"
+            (click)="eliminarNotificacion(n)"
+            pTooltip="Eliminar notificación">
+          </button>
+
+        </div>
+
+      </li>
+    </ul>
+
+  </div>
+</div>
+
+<p-dialog header="Detalles de la Notificación" [modal]="true" [(visible)]="visibleDetalleNotificacion" [style]="{ width: '25rem' }">
+    <div *ngIf="notificacionSeleccionada">
+        <!--
+        <div class="flex align-items-center gap-3 mb-3" class="form-group">
+            <label for="notificacionId" class="font-semibold w-10rem">Id de Notificación</label>
+            <input pInputText id="notificacionId" [(ngModel)]="notificacionSeleccionada.id" class="flex-auto" autocomplete="off" readonly />
+        </div>
+        -->
+        <div class="flex align-items-center gap-3 mb-3" class="form-group">
+            <label for="mensaje" class="font-semibold w-6rem">Mensaje</label>
+            <input pInputText id="mensaje" [(ngModel)]="notificacionSeleccionada.mensaje" class="flex-auto" autocomplete="off" readonly />
+        </div>
+        <div class="flex align-items-center gap-3 mb-5" class="form-group">
+            <label for="fechaNotificacion" class="font-semibold w-13rem">Fecha de Notificación</label>
+            <input pInputText id="fechaNotificacion" [(ngModel)]="notificacionSeleccionada.fechaNotificacion" class="flex-auto" autocomplete="off" readonly />
+        </div>
+        <div class="flex align-items-center gap-3 mb-5" class="form-group">
+            <label for="leida" class="font-semibold w-6rem">Leida</label>
+            <!--<input pInputText id="leida" [(ngModel)]="notificacionSeleccionada.leida" class="flex-auto" autocomplete="off" readonly />-->
+            <span *ngIf="notificacionSeleccionada.leida; else noLeida">
+              <i class="pi pi-check-circle text-green-500"></i> Leída
+            </span>
+            <ng-template #noLeida>
+              <i class="pi pi-circle text-yellow-500"></i> No leída
+            </ng-template>
+        </div>
+        <div class="flex align-items-center gap-3 mb-5" class="form-group">
+            <label for="estado" class="font-semibold w-6rem">Estado</label>
+            <input pInputText id="estado" [(ngModel)]="notificacionSeleccionada.estado" class="flex-auto" autocomplete="off" readonly />
+        </div>
+    </div>
+    <div class="flex justify-content-end gap-2">
+        <p-button label="Cerrar" severity="secondary" (onClick)="visibleDetalleNotificacion = false" />
+    </div>
+</p-dialog>

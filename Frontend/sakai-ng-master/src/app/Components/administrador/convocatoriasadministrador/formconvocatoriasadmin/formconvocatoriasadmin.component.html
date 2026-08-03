@@ -1,0 +1,102 @@
+
+<div class="card bg-light text-black">
+    <div class="card-header"><p-tag severity="primary" value="{{ titulo }}"></p-tag></div>
+    <div class="card-body">
+      <form (ngSubmit)="guardarConvocatoria(f)" class="register-form" #f="ngForm" novalidate>  
+        <div class="form-group row">
+            <label for="titulo" class="col-form-label col-sm-2">Título</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" [(ngModel)]="convocatoria.titulo" name="titulo" placeholder="Escribe el título de la convocatoria" required pattern=".{5,}" #tituloconvocatoria="ngModel">
+              <div *ngIf="tituloconvocatoria.invalid && tituloconvocatoria.touched" class="text-danger">
+                <small *ngIf="tituloconvocatoria.errors?.['required']">El título de la convocatoria es obligatoria.</small>
+                <small *ngIf="tituloconvocatoria.errors?.['pattern']">El título de la convocatoria debe tener al menos 5 caracteres.</small>
+                <small *ngIf="tituloconvocatoria.errors?.['backend']">{{ tituloconvocatoria.errors?.['backend'] }}</small>
+              </div>
+            </div>
+        </div>
+        <div class="form-group row">
+          <label for="descripcion" class="col-form-label col-sm-2">Descripción</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="convocatoria.descripcion" name="descripcion" placeholder="Describe brevemente la convocatoria" required minlength="10" #descripcion="ngModel">
+            <div *ngIf="descripcion.invalid && descripcion.touched" class="text-danger">
+              <small *ngIf="descripcion.errors?.['required']">La descripción de la convocatoria es obligatoria.</small>
+              <small *ngIf="descripcion.errors?.['minlength']">La descripción de la convocatoria debe tener al menos 10 caracteres.</small>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="fechaInicio" class="col-form-label col-sm-2">Fecha de Inicio</label>
+          <div class="col-sm-3">
+               <p-calendar
+                [(ngModel)]="convocatoria.fechaInicio"
+                [showIcon]="true"
+                [showOnFocus]="false"
+                inputId="buttondisplay"
+                [placeholder]="placeholderFechaInicio"
+                [dateFormat]="'dd/mm/yy'"
+                name="fechaInicio"
+                required
+                #fechainicioconvocatoria="ngModel"
+                (ngModelChange)="onDateChangeFechaInicio($event)"
+                [minDate]="minDateInicio"
+                />
+                <div *ngIf="fechainicioconvocatoria.invalid && fechainicioconvocatoria.touched" class="text-danger">
+                  <small *ngIf="fechainicioconvocatoria.errors?.['required']">La fecha de inicio de la convocatoria es obligatoria.</small>
+                </div>
+                <div *ngIf="erroresFechas.inicio" class="text-danger">
+                  <small>{{ erroresFechas.inicio }}</small>
+                </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="fechaFin" class="col-form-label col-sm-2">Fecha de Finalización</label>
+          <div class="col-sm-3">
+               <p-calendar
+                [(ngModel)]="convocatoria.fechaFin"
+                [showIcon]="true"
+                [showOnFocus]="false"
+                inputId="buttondisplay"
+                [placeholder]="placeholderFechaFin"
+                [dateFormat]="'dd/mm/yy'"
+                name="fechaFin"
+                required
+                #fechafinconvocatoria="ngModel"
+                (ngModelChange)="onDateChangeFechaFin($event)"
+                [minDate]="minDateFin"
+                />
+                <div *ngIf="fechafinconvocatoria.invalid && fechafinconvocatoria.touched" class="text-danger">
+                  <small *ngIf="fechafinconvocatoria.errors?.['required']">La fecha de finalización de la convocatoria es obligatoria.</small>
+                </div>
+                <div *ngIf="erroresFechas.fin" class="text-danger">
+                  <small>{{ erroresFechas.fin }}</small>
+                </div> 
+          </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-6">
+              <button class="btn btn-primary-crear" [disabled]="!f.valid || !fechasValidas" type="submit" *ngIf="!convocatoria.id else elseBlock">Crear</button>
+              <ng-template #elseBlock>
+                <button class="btn btn-primary-editar" [disabled]="!f.valid || !fechasValidas" type="submit">Editar</button>
+              </ng-template>
+              <button class="btn btn-primary-cancelar" type="button" (click)='cancelarConvocatoria(convocatoria)'>Cancelar</button>
+              <!--<button type="submit">Probar validación</button>-->
+            </div>
+              <div class="mt-3"
+                *ngIf="validationError || globalError">
+                <p class="error-message text-danger">
+                    <span *ngIf="validationError">
+                        {{ validationError }}
+                    </span>
+                    <span *ngIf="validationError && globalError">
+                        <br>
+                    </span>
+                    <span *ngIf="globalError">
+                        {{ globalError }}
+                    </span>
+                </p>
+            </div>
+        </div>
+
+      </form>
+    </div>
+  </div>

@@ -1,0 +1,253 @@
+<div>
+  <h2 class="titulo-principal"
+      style="text-align: center; font-weight: bold;"> Gestionar Calificaciones de Proyectos
+  </h2>
+</div>
+
+<div *ngIf="calificacionesNomPIT?.length === 0" class="alert alert-info">
+  No hay registros en la base de datos
+</div>
+
+<p-table
+  [value]="calificacionesNomPIT"
+  [tableStyle]="{ 'min-width': '50rem' }">
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Id</th>
+      <th>Título Proyecto</th>
+      <th>Nombre Investigador</th>
+      <th>Título Convocatoria</th>
+      <th>Fecha</th>
+      <th>Calificacion Final</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-item>
+    <tr>
+      <td>{{ item.calificacion.id }}</td>
+      <td>{{ item.proyecto.titulo }}</td>
+      <td>{{ item.nombresapellidosUsuarioInvestigador }}</td>
+      <td>{{ item.tituloConvocatoria }}</td>
+      <td>{{ item.fechaCalificacionFormateada }}</td>
+      <td>{{ item.calificacion?.calificacionFinal
+             ? ajustarCalificacion(item.calificacion.calificacionFinal)
+             : 0
+          }}%
+      </td>   
+      <td>{{ getEstadoDesdePuntaje(item.calificacion.calificacionFinal) }}</td>         
+      <td>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-eye"
+          class="p-button-info"
+          pTooltip="Ver detalle calificación del tutor"
+          tooltipStyleClass="custom-tooltip"
+          tooltipPosition="left"
+          appendTo="body"
+          (click)="mostrarDetalleCalificacion
+                   (item.calificacion.id, RolCalificador.TUTOR,
+                    item.nombresapellidosUsuarioTutor, item.calificacion.tutorId
+                    ?? item.calificacion.idTutorHistorico)">
+        </button>
+
+         <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-eye"
+          class="p-button-info"
+          pTooltip="Ver detalle calificación del evaluador"
+          tooltipStyleClass="custom-tooltip"
+          tooltipPosition="left"
+          appendTo="body"
+          (click)="mostrarDetalleCalificacion
+                   (item.calificacion.id, RolCalificador.EVALUADOR,
+                    item.nombresapellidosUsuarioEvaluador, item.calificacion.evaluadorId
+                    ?? item.calificacion.idEvaluadorHistorico)">
+        </button>
+
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-trash"
+          class="p-button-rounded p-button-text"
+          pTooltip="Eliminar"
+          (click)="eliminarCalificacion(item.calificacion)">
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<!-- DIALOG -->
+
+<p-dialog
+  [header]="tituloDetalleCalificacion"
+  [(visible)]="visibleDetalleCalificacion"
+  [modal]="true"
+  [closable]="!cargandoDetalle"
+  [style]="cargandoDetalle
+    ? { width: '350px' }
+    : { width: '80vw', maxHeight: '80vh' }">
+
+   <!-- SPINNER MIENTRAS CARGA -->
+  <div *ngIf="cargandoDetalle" class="spinner-container">
+    <p-progressSpinner
+      styleClass="small-spinner"
+      strokeWidth="6"
+      animationDuration="2s">
+    </p-progressSpinner>
+    <p class="mt-3">
+      Cargando detalle de la calificación...
+    </p>
+  </div>
+
+  <div *ngIf="!cargandoDetalle && calificacionSeleccionada">
+
+    <div class="mb-3 text-center">
+      <h4>Nombre del Calificador: {{ nombreCalificadorSeleccionado }}</h4>
+    </div>
+
+    <div class="card">
+
+      <ng-container *ngFor="let seccion of secciones">
+
+        <!-- HEADER -->
+        <div class="card-header">
+          <p-tag
+            severity="primary"
+            [value]="seccion.titulo">
+          </p-tag>
+        </div>
+
+        <!-- BODY -->
+        <div class="card-body">
+
+          <div
+            *ngFor="let field of seccion.fields"
+            class="form-group">
+
+            <!-- LABEL -->
+            <label class="form-label">
+              {{ field.label }}
+            </label>
+
+            <!-- FILA -->
+            <div class="form-row">
+
+              <!-- TEXTO -->
+              <input
+                type="text"
+                class="form-control"
+                [(ngModel)]="field.value"
+                [disabled]="true"
+                [ngClass]="field.calificacion"
+              />
+
+              <!-- ESTADO -->
+              <select
+                class="form-select"
+                [(ngModel)]="field.calificacion"
+                [disabled]="true"
+                [ngClass]="field.calificacion">
+
+                <option [ngValue]="EstadoCalificacion.NO_APROBADO">
+                  NO APROBADO
+                </option>
+
+                <option [ngValue]="EstadoCalificacion.POR_MEJORAR">
+                  POR MEJORAR
+                </option>
+
+                <option [ngValue]="EstadoCalificacion.APROBADO">
+                  APROBADO
+                </option>
+
+                <option [ngValue]="EstadoCalificacion.PENDIENTE">
+                  PENDIENTE
+                </option>
+
+              </select>
+
+              <!-- ICONO -->
+              <span
+                class="icon"
+                [ngClass]="field.calificacion">
+              </span>
+
+              <!-- SCORE -->
+              <div class="score-wrapper">
+
+                <input
+                  type="number"
+                  class="score-input"
+                  [(ngModel)]="field.puntaje"
+                  [disabled]="true"
+                  [ngClass]="[
+                    getScoreValidationClass(field),
+                    field.calificacion ?? ''
+                  ]"
+                />
+
+                <span class="percent">
+                  %
+                </span>
+
+              </div>
+
+              <!-- SLIDER -->
+              <input
+                *ngIf="field.calificacion"
+                type="range"
+                class="score-slider"
+                step="0.1"
+                [(ngModel)]="field.puntaje"
+                [disabled]="true"
+                [min]="getMin(field.calificacion)"
+                [max]="getMax(field.calificacion)"
+              />
+
+            </div>
+
+            <!-- COMENTARIO -->
+            <input
+              type="text"
+              class="form-control comment"
+              [(ngModel)]="field.comentarios"
+              [disabled]="true"
+            />
+
+          </div>
+
+        </div>
+
+      </ng-container>
+
+      <!-- RESULTADO FINAL -->
+      <div class="card-header">
+        <h3>Resultado Final</h3>
+      </div>
+
+      <div class="card-body text-center">
+
+        <h2>
+          {{ ajustarCalificacion(notaFinalSeleccionada) }}%
+        </h2>
+
+        <span
+          [ngClass]="estadoFinalSeleccionado">
+          {{ estadoFinalSeleccionado }}
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</p-dialog>

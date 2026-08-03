@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+<div class="card bg-light text-black">
+  <div class="card-header">
+    <p-tag severity="primary" value="{{ tituloArbolDeProblemas }}"></p-tag>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="formularioArbol">
+
+      <!-- DESCRIPCIÓN -->
+      <div class="form-group row mb-4">
+        <label for="descripcion" class="col-form-label col-sm-2">Descripción</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" formControlName="descripcion" placeholder="Describe el problema principal">
+          <div *ngIf="formularioArbol.get('descripcion')?.invalid && formularioArbol.get('descripcion')?.touched" class="text-danger mt-1">
+            <small *ngIf="formularioArbol.get('descripcion')?.errors?.['required']">La descripción del árbol de problemas es obligatoria.</small>
+            <small *ngIf="formularioArbol.get('descripcion')?.errors?.['minlength']">La descripción del árbol de problemas debe tener al menos 10 caracteres.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAUSAS -->
+      <div class="card-header mt-4">
+        <p-tag severity="primary" value="{{ tituloCausasArbolDeProblemas }}"></p-tag>
+      </div>
+
+      <div formArrayName="causas" class="mb-3">
+      <div *ngFor="let causa of causas.controls; let i = index" [formGroupName]="i" class="form-group row mb-3">
+        <label class="col-form-label col-sm-3">Descripción de la Causa</label>
+        <div class="col-sm-6 d-flex align-items-start gap-2">
+          <input type="text" class="form-control flex-grow-1" formControlName="descripcion" placeholder="Describe la causa">
+          <!--<button *ngIf="causas.length > 0"
+                  pButton type="button" icon="pi pi-minus"
+                  class="p-button-danger p-button-rounded p-button-sm"
+                  (click)="quitarCausa(i)"
+                  pTooltip="Eliminar esta causa">
+          </button>
+        -->
+          <!-- Mostrar botón solo si el árbol ya existe y esta causa viene del backend -->
+          <button *ngIf="arbolDeProblemas.id && causa.get('esExistente')?.value"
+                  pButton type="button" icon="pi pi-minus"
+                  class="p-button-danger p-button-rounded p-button-sm"
+                  (click)="marcarCausaParaEliminar(i)"
+                  pTooltip="Marcar esta causa para eliminar"
+                  tooltipPosition="top"
+                  appendTo="body"
+                  tooltipStyleClass="tooltip-eliminar">
+          </button>
+        </div>
+        <div *ngIf="causa.get('descripcion')?.invalid && causa.get('descripcion')?.touched" class="text-danger mt-1 w-100">
+          <small *ngIf="causa.get('descripcion')?.errors?.['required']">La descripción de la causa es obligatoria.</small>
+          <small *ngIf="causa.get('descripcion')?.errors?.['minlength']">La descripción de la causa debe tener al menos 5 caracteres.</small>
+        </div>
+      </div>
+    </div>
+
+      <div class="form-group row mb-4">
+        <div class="col-sm-6 d-flex align-items-start">
+          <button pButton type="button" name="agregar causa" (click)="agregarCausa()" 
+                  icon="pi pi-plus" 
+                  tooltipPosition="bottom" 
+                  pTooltip="Agregar Causa" class="mt-2"> 
+            Nueva Causa
+          </button>
+          <!-- Botón quitar última causa (solo visible si hay causas) -->
+          <button *ngIf="causas.length > 0"
+                  pButton type="button" (click)="quitarUltimaCausa()" 
+                  icon="pi pi-minus" class="p-button-danger mt-2" 
+                  pTooltip="Quitar última causa">
+            Quitar Causa
+          </button>
+        </div>
+          <div *ngIf="causas.length === 0" class="text-danger mt-2">
+            <small>Debes agregar al menos una causa.</small>
+          </div>
+      </div>
+
+      <!-- EFECTOS -->
+      <div class="card-header mt-4">
+        <p-tag severity="primary" value="{{ tituloEfectosArbolDeProblemas }}"></p-tag>
+      </div>
+
+      <div formArrayName="efectos" class="mb-3">
+      <div *ngFor="let efecto of efectos.controls; let i = index" [formGroupName]="i" class="form-group row mb-3">
+        <label class="col-form-label col-sm-3">Descripción del Efecto</label>
+        <div class="col-sm-6 d-flex align-items-start gap-2">
+          <input type="text" class="form-control flex-grow-1" formControlName="descripcion" placeholder="Describe el efecto">
+          <!--<button *ngIf="efectos.length > 0"
+                  pButton type="button" icon="pi pi-minus"
+                  class="p-button-danger p-button-rounded p-button-sm"
+                  (click)="quitarEfecto(i)"
+                  pTooltip="Eliminar este efecto">
+          </button>
+        -->
+             <!-- Mostrar botón solo si el árbol ya existe y este efecto viene del backend -->
+          <button *ngIf="arbolDeProblemas.id && efecto.get('esExistente')?.value"
+                  pButton type="button" icon="pi pi-minus"
+                  class="p-button-danger p-button-rounded p-button-sm"
+                  (click)="marcarEfectoParaEliminar(i)"
+                  pTooltip="Marcar este efecto para eliminar"
+                  appendTo="body"
+                  tooltipStyleClass="tooltip-eliminar">
+          </button>
+        </div>
+        <div *ngIf="efecto.get('descripcion')?.invalid && efecto.get('descripcion')?.touched" class="text-danger mt-1 w-100">
+          <small *ngIf="efecto.get('descripcion')?.errors?.['required']">La descripción del efecto es obligatoria.</small>
+          <small *ngIf="efecto.get('descripcion')?.errors?.['minlength']">La descripción del efecto debe tener al menos 5 caracteres.</small>
+        </div>
+      </div>
+    </div>
+
+      <div class="form-group row mb-4">
+        <div class="col-sm-6 d-flex align-items-start">
+          <button pButton type="button" name="agregar efecto" (click)="agregarEfecto()" 
+                  icon="pi pi-plus"
+                  tooltipPosition="bottom" 
+                  pTooltip="Agregar Efecto" class="mt-2"> 
+            Nuevo Efecto
+          </button>
+           <!-- Botón quitar último efecto -->
+          <button *ngIf="efectos.length > 0"
+                  pButton type="button" (click)="quitarUltimoEfecto()" 
+                  icon="pi pi-minus" class="p-button-danger mt-2" 
+                  pTooltip="Quitar último efecto">
+            Quitar Efecto
+          </button>
+        </div>
+        <div *ngIf="efectos.length === 0" class="text-danger mt-2">
+            <small>Debes agregar al menos un efecto.</small>
+          </div>
+      </div>
+
+      <!-- BOTÓN CREAR ÁRBOL -->
+      <div class="form-group row mt-5">
+        <div class="col-sm-6">
+          <small *ngIf="formularioArbol.hasError('cantidadNoCoincide')" class="text-danger mt-2 d-block">
+            El número de causas y efectos debe ser igual.
+          </small>
+
+          <button class="btn btn-primary mt-3"
+                  [disabled]="!formularioValido"
+                  (click)="crearArbolDeProblemas()"
+                  *ngIf="!arbolDeProblemas.id else elseBlock">
+            Crear Árbol de Problemas
+          </button>
+           <ng-template #elseBlock>
+                <button class="btn btn-primary-editar mt-3" 
+                  [disabled]="!formularioValido"
+                  (click)='actualizarArbolDeProblemas()'>
+                  Editar Árbol de Problemas
+                </button>
+           </ng-template>
+              <button 
+                class="btn btn-primary-cancelar mt-3 ms-2" 
+                type="button" 
+                (click)='cancelarArbolDeProblemas()'>Cancelar
+              </button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+</body>
+</html>
